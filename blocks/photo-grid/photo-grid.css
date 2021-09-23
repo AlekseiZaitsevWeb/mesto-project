@@ -2,3 +2,9 @@
   margin: 0 auto;
 }
 
+@media screen and (max-width: 879px) {
+  .photo-grid {
+    margin: 0 19px;
+  }
+}
+

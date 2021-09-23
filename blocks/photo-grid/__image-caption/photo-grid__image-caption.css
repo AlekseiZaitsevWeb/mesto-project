@@ -1,5 +1,7 @@
 .photo-grid__image-caption {
-  max-width: 246px;
-  min-height: 23px;
-  margin: 25px 15px 31px 21px;
+  display: grid;
+  grid-template-columns: 1fr 22px;
+  column-gap: 5px;
+  justify-content: space-between;
+  margin: 25px 20px 31px 21px;
 }

@@ -10,6 +10,7 @@
   top: calc(50% - 12px);
   right: 0;
   cursor: pointer;
+  transition: opacity .3s ease-out;
 }
 
 @media screen and (max-width: 767px) {
@@ -20,4 +21,8 @@
     margin-left: 10px;
     top: calc(50% - 9px);
   }
+}
+
+.profile__edit-button:hover {
+  opacity: .6;
 }
