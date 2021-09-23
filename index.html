@@ -33,7 +33,7 @@
       </section>
       <!-- end profile -->
       <!-- photo-grid  -->
-      <section class="photo-grid">
+      <section class="photo-grid content__photo-grid">
         <ul class="photo-grid__items">
           <li class="photo-grid__item">
             <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="photo-grid__image">
@@ -83,11 +83,22 @@
     </main>
     <!-- end main -->
     <!-- footer -->
-    <footer class="footer">
+    <footer class="footer page__footer">
       <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
     <!-- end footer -->
   </div>
   <!-- end page -->
+  <!-- popup -->
+  <section class="popup root__popup popup_opened">
+    <form class="popup__container" action="#">
+      <h2 class="popup__title"></h2>
+      <input class="popup__input-text" type="text">
+      <input class="popup__input-text" type="text">
+      <button class="popup__button-submit" type="submit"></button>
+      <button class="popup__button-clouse" type="submit"></button>
+    </form>
+  </section>
+  <!-- end popup -->
 </body>
 </html>
