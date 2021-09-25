@@ -7,10 +7,11 @@
   background-color: #000;
   max-width: 358px;
   min-height: 50px;
-  color: #fff;
+  font-family: inherit;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
+  color: #fff;
   transition: opacity .3s ease-out;
 }
 
