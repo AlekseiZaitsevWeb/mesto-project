@@ -1,13 +1,12 @@
 .profile__name-edit {
-  display: inline-block;
-  width: fit-content;
-  padding: 0 42px 0 0;
-  position: relative;
+  display: grid;
+  grid-template-columns: auto 24px 1fr;
+  column-gap: 0;
 }
 
 @media screen and (max-width: 767px) {
   .profile__name-edit {
-    padding: 0 28px;
     margin: 0 auto;
+    column-gap: 24px;
   }
 }
