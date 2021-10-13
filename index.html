@@ -35,48 +35,6 @@
       <!-- photo-grid  -->
       <section class="photo-grid content__photo-grid">
         <ul class="photo-grid__items">
-          <li class="photo-grid__item">
-            <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="photo-grid__image">
-            <div class="photo-grid__image-caption">
-              <p class="photo-grid__image-title">Гора Эльбрус</p>
-              <button class="photo-grid__like-button photo-grid__like-button_active" type="button"></button>
-            </div>
-          </li>
-          <li class="photo-grid__item">
-            <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="photo-grid__image">
-            <div class="photo-grid__image-caption">
-              <p class="photo-grid__image-title">Карачаевск</p>
-              <button class="photo-grid__like-button" type="button"></button>
-            </div>
-          </li>
-          <li class="photo-grid__item">
-            <img src="./images/dombay.jpg" alt="Домбай" class="photo-grid__image">
-            <div class="photo-grid__image-caption">
-              <p class="photo-grid__image-title">Домбай</p>
-              <button class="photo-grid__like-button" type="button"></button>
-            </div>
-          </li>
-          <li class="photo-grid__item">
-            <img src="./images/dombay.jpg" alt="Домбай" class="photo-grid__image">
-            <div class="photo-grid__image-caption">
-              <p class="photo-grid__image-title">Домбай</p>
-              <button class="photo-grid__like-button" type="button"></button>
-            </div>
-          </li>
-          <li class="photo-grid__item">
-            <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="photo-grid__image">
-            <div class="photo-grid__image-caption">
-              <p class="photo-grid__image-title">Гора Эльбрус</p>
-              <button class="photo-grid__like-button" type="button"></button>
-            </div>
-          </li>
-          <li class="photo-grid__item">
-            <img src="./images/karachaevsk.jpg" alt="Карачаево-Черкесск" class="photo-grid__image">
-            <div class="photo-grid__image-caption">
-              <p class="photo-grid__image-title">Карачаево-Черкесск</p>
-              <button class="photo-grid__like-button" type="button"></button>
-            </div>
-          </li>
         </ul>
       </section>
       <!-- end photo-grid  -->
@@ -100,6 +58,18 @@
     </div>
   </section>
   <!-- end popup -->
+  <!-- card__template -->
+  <template  class="card__template">
+    <li class="photo-grid__item">
+      <img src="" alt="" class="photo-grid__image">
+      <button class="photo-grid__delete-button" type="button"></button>
+      <div class="photo-grid__image-caption">
+        <p class="photo-grid__image-title"></p>
+        <button class="photo-grid__like-button" type="button"></button>
+      </div>
+    </li>
+  </template>
+  <!-- end card__template -->
   <script src="scripts/popups.js"></script>
   <script src="scripts/cards.js"></script>
   <script src="scripts/index.js"></script>
