@@ -6,14 +6,14 @@ const popups = {
               {
                 type: 'text',
                 name: 'profile-name',
-                class: 'popup__input-text',
+                class: 'popup__input-text popup__input_profile_name',
                 placeholder: 'Имя',
                 value: '.profile__name'
               },
               {
                 type: 'text',
                 name: 'profile-description',
-                class: 'popup__input-text',
+                class: 'popup__input-text popup__input_profile_description',
                 placeholder: 'О себе',
                 value: '.profile__description'
               }
@@ -27,13 +27,13 @@ const popups = {
               {
                 type: 'text',
                 name: 'place-name',
-                class: 'popup__input-text',
+                class: 'popup__input-text popup__inpu_place_name',
                 placeholder: 'Название'
               },
               {
                 type: 'text',
                 name: 'place-link',
-                class: 'popup__input-text',
+                class: 'popup__input-text popup__inpu_place_link',
                 placeholder: 'Ссылка на картинку'
               },
             ],
@@ -46,6 +46,9 @@ function openPopup(dataPopup) {
 
   // Получаю окно
   const popup = document.querySelector('.popup');
+
+  // Очищаю форму
+  cleanPopup(popup);
 
   // Имя формы
   const popupForm = popup.querySelector('form');
@@ -90,22 +93,27 @@ function closePopup() {
   // Скрываю окно
   popup.classList.remove('popup_opened');
 
+}
+
+
+function cleanPopup(element) {
+
   // Имя формы
-  const popupForm = popup.querySelector('form');
+  const popupForm = element.querySelector('form');
   popupForm.setAttribute('name', '');
 
   // Заголовок
-  const popupTitle = popup.querySelector('.popup__title');
+  const popupTitle = element.querySelector('.popup__title');
   popupTitle.textContent = '';
 
   // Кнопка submit
-  const popupBtn = popup.querySelector('.popup__button-submit');
+  const popupBtn = element.querySelector('.popup__button-submit');
   popupBtn.textContent = '';
 
   // input-ы
-  const popupInputs = popup.querySelectorAll('input');
+  const popupInputs = element.querySelectorAll('input');
   popupInputs.forEach((input) => {
     input.remove();
-  })
+  });
 
 }
