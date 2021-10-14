@@ -48,16 +48,27 @@
   </div>
   <!-- end page -->
   <!-- popup -->
-  <section class="popup root__popup">
+  <section class="popup root__popup popup_type_modal">
     <div class="popup__container">
       <h2 class="popup__title"></h2>
       <form name="" action="#" class="popup__form">
         <button class="popup__button-submit" type="submit"></button>
       </form>
-      <button class="popup__button-close" type="button"></button>
+      <button class="popup__button-close popup__button-close_modal" type="button"></button>
     </div>
   </section>
   <!-- end popup -->
+  <!-- popup img -->
+  <section class="popup root__popup popup_type_view">
+    <div class="popup__container popup__container_type_view">
+      <figure class="popup__figure">
+        <img class="popup__image" src="" alt="">
+        <figcaption class="popup__caption"></figcaption>
+      </figure>
+      <button class="popup__button-close popup__button-close_img" type="button"></button>
+    </div>
+  </section>
+  <!-- end popup img -->
   <!-- card__template -->
   <template  class="card__template">
     <li class="photo-grid__item">
