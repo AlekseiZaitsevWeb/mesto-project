@@ -30,9 +30,9 @@ const popupPlaceAddElement = document.querySelector('.popup_type_add-place');
 // Форма добавления места
 const formPlaceAddElement = popupPlaceAddElement.querySelector('.popup__form_type_add-place');
 
- // Получаю значения полей из формы
- const nameInputPlaceAdd = formPlaceAddElement.querySelector('.popup__input_place_name');
- const linkInputPlaceAdd = formPlaceAddElement.querySelector('.popup__input_place_link');
+// Получаю значения полей из формы
+const nameInputPlaceAdd = formPlaceAddElement.querySelector('.popup__input_place_name');
+const linkInputPlaceAdd = formPlaceAddElement.querySelector('.popup__input_place_link');
 
 // Получаю элемент popup wiew
 const popupImageElement = document.querySelector('.popup_type_view');
