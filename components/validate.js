@@ -6,6 +6,7 @@ const showInputError = (formSelector, inputElement, inputTextError, errorMessage
   errorMessageElement.textContent = errorMessage;
 }
 
+
 const hideInputError = (formSelector, inputElement, inputTextError, inputErrorClass, errorClass) => {
   const errorMessageElement = inputElement.closest(formSelector).querySelector(inputTextError);
 
@@ -13,6 +14,7 @@ const hideInputError = (formSelector, inputElement, inputTextError, inputErrorCl
   errorMessageElement.classList.remove(errorClass);
   errorMessageElement.textContent = '';
 }
+
 
 const checkInputValidity = (formSelector, inputElement, inputTextError, inputErrorClass, errorClass) => {
   const isInputValid = inputElement.validity.valid;
@@ -25,11 +27,13 @@ const checkInputValidity = (formSelector, inputElement, inputTextError, inputErr
   }
 }
 
+
 function hasInvalidInput(inputListArray) {
   return inputListArray.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 }
+
 
 function toggleButtonState(inputListArray, submitButtonElement) {
   if(hasInvalidInput(inputListArray)) {
@@ -38,6 +42,7 @@ function toggleButtonState(inputListArray, submitButtonElement) {
     submitButtonElement.removeAttribute('disabled');
   }
 }
+
 
 const setEventListeners = (formSelector, formElement, inputTextError, inputSelector, submitButtonSelector, inputErrorClass, errorClass) => {
   const inputListArray = Array.from(formElement.querySelectorAll(inputSelector));
@@ -55,7 +60,8 @@ const setEventListeners = (formSelector, formElement, inputTextError, inputSelec
   });
 }
 
-export const enableValidation = ({ formSelector,
+
+export const enableValidation = ({formSelector,
                             inputSelector,
                             inputTextError,
                             submitButtonSelector,

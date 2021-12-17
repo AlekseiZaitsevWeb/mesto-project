@@ -1,51 +1,39 @@
-import {loadCards, cards} from './card.js';
+import {enableCard} from './card.js';
+import {enableModal} from './modal.js';
 import {enableValidation} from './validate.js';
-import {openPopup} from './modal.js';
 
 
-
-
-enableModal({
-
-  popupAddPlaceElement: '.popup__form_type_add-place',
-  formAddPlaceElement:  '.popup__form_type_add-place',
-  addPlaceButton:       '.profile__add-button',
-
-  closeButton:          '.popup__button-close',
-
-  openPopupClass:       'popup_opened'
+enableCard({
+  viewPopupSelector:          '.popup_type_view',
+  viewPopupImageSelector:     '.popup__image',
+  viewPopupCaptionSelector:   '.popup__caption'
 });
 
 
-{
-  popupSelector: '.popup',
-  openPopupClass:       'popup_opened',
-
-  popupProfileEditButtonSelector: '.profile__edit-button' // Кнопка редактировать профиль
-
-  profileNameTextSelector: '.profile__name',
-  profileJobTextSelector: '.profile__description',
-  popupImageSelector: '.popup__image',
-  popupCaptionSelector: '.popup__caption',
-
-
-}
-
-
-
-
-
-
-
-// Вывожу карточки при загрузке страницы
-loadCards(cards); // сделать на входе объект как у enableValidation
+enableModal({
+  popupSelector:              '.popup',
+  popupCloseButtonSelector:   '.popup__button-close',
+  profilePopupSelector:       '.popup_type_profile-edit',
+  profileEditButtonSelector:  '.profile__edit-button',
+  profileNameTextSelector:    '.profile__name',
+  profileJobTextSelector:     '.profile__description',
+  profileNameInputSelector:   '.popup__input_profile_name',
+  profileJobInputSelector:    '.popup__input_profile_description',
+  profileFormSelector:        '.popup__form_type_profile-edit',
+  addPlacePopupSelector:      '.popup_type_add-place',
+  addPlaceButtonSelector:     '.profile__add-button',
+  addPlaceFormSelector:       '.popup__form_type_add-place',
+  addPlaceNameInputSelector:  '.popup__input_place_name',
+  addPlaceLinknputSelector:   '.popup__input_place_link',
+  popupOpenedClass:           'popup_opened'
+});
 
 
 enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input-text',
-  inputTextError: '.popup__input-text-error',
-  submitButtonSelector: '.popup__button-submit',
-  inputErrorClass: 'popup__input-text_color_error',
-  errorClass: 'popup__input-text-error_active'
+  formSelector:               '.popup__form',
+  inputSelector:              '.popup__input-text',
+  inputTextError:             '.popup__input-text-error',
+  submitButtonSelector:       '.popup__button-submit',
+  inputErrorClass:            'popup__input-text_color_error',
+  errorClass:                 'popup__input-text-error_active'
 });

@@ -26,6 +26,17 @@ export const cards = [
 
   ];
 
+
+  export const enableCard = ({
+    viewPopupSelector,
+    viewPopupImageSelector,
+    viewPopupCaptionSelector
+  }) => {
+    // Вывожу карточки при загрузке страницы
+    loadCards(cards);
+  }
+
+
   // Получаю шаблон карточки
 const cardTemplate = document.querySelector('.card__template').content;
 

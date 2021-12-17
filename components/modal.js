@@ -1,98 +1,143 @@
-// Кнопка редактировать профиль
-const profileEditBtnElement = document.querySelector('.profile__edit-button');
-
-// Получаю элементы полей в профиле
-const nameInputElement = document.querySelector('.profile__name');
-const jobInputElement  = document.querySelector('.profile__description');
-
-// Popup Profile Edit
-const popupProfileEditElement = document.querySelector('.popup_type_profile-edit');
-
-// Форма Profile Edit
-const formProfileEditElement = popupProfileEditElement.querySelector('.popup__form_type_profile-edit');
-
-// Получаю поля из формы редактирования профиля
-const nameInputProfileEdit = popupProfileEditElement.querySelector('.popup__input_profile_name');
-const jobInputProfileEdit  = popupProfileEditElement.querySelector('.popup__input_profile_description');
-
-// Кнопка добавить место
-const placeAddBtnElement = document.querySelector('.profile__add-button');
-
-// Popup Place Add
-const popupPlaceAddElement = document.querySelector('.popup_type_add-place');
-
-// Форма добавления места
-const formPlaceAddElement = popupPlaceAddElement.querySelector('.popup__form_type_add-place');
-
-// Получаю значения полей из формы
-const nameInputPlaceAdd = formPlaceAddElement.querySelector('.popup__input_place_name');
-const linkInputPlaceAdd = formPlaceAddElement.querySelector('.popup__input_place_link');
-
-// Получаю элемент popup wiew
-const popupImageElement = document.querySelector('.popup_type_view');
-
-// Вск кнопки закрытия popup
-const closeButtonElements = document.querySelectorAll('.popup__button-close');
-
-
-
-
-
-
 // Открытие popup
-function openPopup(element) {
-  element.classList.add('popup_opened');
+function openPopup(element, popupOpenedClass) {
+  element.classList.add(popupOpenedClass);
 }
 
 
 // Закрытие popup
-function closePopup(element) {
-  element.classList.remove('popup_opened');
+function closePopup(element, popupOpenedClass) {
+  element.classList.remove(popupOpenedClass);
 }
-
-
-
-
-// Сохранение введенных данные в профиль
-function saveEditProfile(popupElement){
-
-  // Записываю значения в профиль
-  nameInputElement.textContent = nameInputProfileEdit.value;
-  jobInputElement.textContent = jobInputProfileEdit.value;
-
-  // Закрываю окно
-  closePopup(popupElement);
-}
-
-
-
-
-
 
 
 // Добавление карточки
-function addPlace(popupElement, wrapCardsElement){
+function addPlace(popupElement, addPlaceNameInputElement, addPlaceLinknputElement, popupOpenedClass){
 
   // Создаю и вывожу карточку
-  renderCard(createCardElement({name: nameInputPlaceAdd.value, link: linkInputPlaceAdd.value}));
+  //renderCard(createCardElement({name: nameInputPlaceAdd.value, link: linkInputPlaceAdd.value}));
 
   // Закрываю окно
-  closePopup(popupElement);
+  closePopup(popupElement, popupOpenedClass);
 
   // Очищаю поля
-  nameInputPlaceAdd.value = '';
-  linkInputPlaceAdd.value = '';
+  addPlaceNameInputElement.value = '';
+  addPlaceLinknputElement.value = '';
+}
+
+
+// Сохранение введенных данные в профиль
+function saveEditProfile(popupElement, nameTextElement, jobTextElement,  nameInputElement, jobInputElement, popupOpenedClass){
+
+  // Записываю значения в профиль
+  nameTextElement.textContent = nameInputElement.value;
+  jobTextElement.textContent = jobInputElement.value;
+
+  // Закрываю окно
+  closePopup(popupElement, popupOpenedClass);
+}
+
+
+const enableModalProfile = (
+  profilePopupSelector,
+  profileEditButtonSelector,
+  profileNameTextSelector,
+  profileJobTextSelector,
+  profileNameInputSelector,
+  profileJobInputSelector,
+  profileFormSelector,
+  popupOpenedClass
+) => {
+
+  //--- Получаю элементы ---
+
+  // Кнопка редактировать профиль
+  const profileEditBtnElement = document.querySelector(profileEditButtonSelector);
+
+  // Popup Profile Edit
+  const popupProfileEditElement = document.querySelector(profilePopupSelector);
+
+  // Получаю элементы полей в профиле
+  const nameTextElement = document.querySelector(profileNameTextSelector);
+  const jobTextElement  = document.querySelector(profileJobTextSelector);
+
+  // Получаю инпуты из формы редактирования профиля
+  const nameInputElement = popupProfileEditElement.querySelector(profileNameInputSelector);
+  const jobInputElement  = popupProfileEditElement.querySelector(profileJobInputSelector);
+
+  // Форма Profile Edit
+  const formProfileEditElement = popupProfileEditElement.querySelector(profileFormSelector);
+
+
+  //--- Вешаю слушателей ---
+
+
+  // Открытие popup edit profile
+  profileEditBtnElement.addEventListener('click', () => {
+
+    // Записываю в поля формы из разметки
+    nameInputElement.value = nameTextElement.textContent;
+    jobInputElement.value = jobTextElement.textContent;
+
+    // Открываю popup
+    openPopup(popupProfileEditElement, popupOpenedClass);
+  });
+
+  // Сохранение данных в профиле
+  formProfileEditElement.addEventListener('submit', (evt) => {
+    saveEditProfile(popupProfileEditElement, nameTextElement, jobTextElement,  nameInputElement, jobInputElement, popupOpenedClass);
+  });
+}
+
+
+const enableModalAddPlace = (
+  addPlacePopupSelector,
+  addPlaceButtonSelector,
+  addPlaceFormSelector,
+  addPlaceNameInputSelector,
+  addPlaceLinknputSelector,
+  popupOpenedClass
+) => {
+
+  //--- Получаю элементы ---
+
+
+  // Popup Place Add
+  const popupPlaceAddElement = document.querySelector(addPlacePopupSelector);
+
+  // Кнопка добавить место
+  const placeAddBtnElement = document.querySelector(addPlaceButtonSelector);
+
+  // Форма добавления места
+  const formPlaceAddElement = popupPlaceAddElement.querySelector(addPlaceFormSelector);
+
+  // Получаю значения полей из формы
+  const addPlaceNameInputElement = formPlaceAddElement.querySelector(addPlaceNameInputSelector);
+  const addPlaceLinknputElement = formPlaceAddElement.querySelector(addPlaceLinknputSelector);
+
+  //--- Вешаю слушателей ---
+
+
+  // Открытие popup add place
+  placeAddBtnElement.addEventListener('click', () => openPopup(popupPlaceAddElement, popupOpenedClass));
+
+  // Добавление карточки
+  formPlaceAddElement.addEventListener('submit', (evt) => {
+    addPlace(popupPlaceAddElement, addPlaceNameInputElement, addPlaceLinknputElement, popupOpenedClass);
+  });
 }
 
 
 // Открытие popup view
-function openPopupView(data){
+function openPopupView(data, viewPopupSelector, viewPopupImageSelector, viewPopupCaptionSelector){
+
+  // Получаю элемент popup wiew
+  const popupImageElement = document.querySelector(viewPopupSelector);
 
   // Загружаю данные
-  const imageElement = popupImageElement.querySelector('.popup__image');
+  const imageElement = popupImageElement.querySelector(viewPopupImageSelector);
   imageElement.setAttribute('src', data.src);
   imageElement.setAttribute('alt', `Изображение ${data.name}`);
-  const captionElement = popupImageElement.querySelector('.popup__caption');
+  const captionElement = popupImageElement.querySelector(viewPopupCaptionSelector);
   captionElement.textContent = data.name;
 
   // Открываю popup
@@ -100,45 +145,57 @@ function openPopupView(data){
 }
 
 
+export const enableModal = ({
+  popupSelector,
+  popupCloseButtonSelector,
+  profilePopupSelector,
+  profileEditButtonSelector,
+  profileNameTextSelector,
+  profileJobTextSelector,
+  profileNameInputSelector,
+  profileJobInputSelector,
+  profileFormSelector,
+  addPlacePopupSelector,
+  addPlaceButtonSelector,
+  addPlaceFormSelector,
+  addPlaceNameInputSelector,
+  addPlaceLinknputSelector,
+  popupOpenedClass
+}) => {
 
-// ---
-
-
-
-
-// Открытие popup edit profile
-profileEditBtnElement.addEventListener('click', () => {
-
-  // Записываю в поля формы
-  nameInputProfileEdit.value = nameInputElement.textContent;
-  jobInputProfileEdit.value = jobInputElement.textContent;
-
-  // Открываю popup
-  openPopup(popupProfileEditElement);
-});
-
-
-// Сохранение данных в профиле
-formProfileEditElement.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  saveEditProfile(popupProfileEditElement);
-});
+  //--- Получаю общие элементы ---
 
 
-// Закрытие popup
-closeButtonElements.forEach(closeButtonElement => {
-  closeButtonElement.addEventListener('click', (evt) => {
-    closePopup(evt.target.closest('.popup'));
+  // Список кнопкок закрытия popup
+  const closeButtonElements = document.querySelectorAll(popupCloseButtonSelector);
+
+  //--- Вешаю слушателей ---
+
+  // Закрытие popup
+  closeButtonElements.forEach(closeButtonElement => {
+    closeButtonElement.addEventListener('click', (evt) => {
+      closePopup(evt.target.closest(popupSelector), popupOpenedClass);
+    })
   })
-})
 
+  // Подключаю окно - Редактировать профиль
+  enableModalProfile(
+    profilePopupSelector,
+    profileEditButtonSelector,
+    profileNameTextSelector,
+    profileJobTextSelector,
+    profileNameInputSelector,
+    profileJobInputSelector,
+    profileFormSelector,
+    popupOpenedClass);
 
-// Открытие popup add place
-placeAddBtnElement.addEventListener('click', () => openPopup(popupPlaceAddElement));
-
-
-// Добавление карточки
-formPlaceAddElement.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  addPlace(popupPlaceAddElement, wrapCardsElement);
-});
+  // Подключаю окно - Добавить место
+  enableModalAddPlace(
+    addPlacePopupSelector,
+    addPlaceButtonSelector,
+    addPlaceFormSelector,
+    addPlaceNameInputSelector,
+    addPlaceLinknputSelector,
+    popupOpenedClass
+  );
+}
