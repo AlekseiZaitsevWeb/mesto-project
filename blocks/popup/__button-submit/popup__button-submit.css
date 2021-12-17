@@ -12,11 +12,16 @@
   font-size: 18px;
   line-height: 22px;
   color: #fff;
-  transition: opacity .3s ease-out;
+  transition: all .3s ease-out;
 }
 
 .popup__button-submit:hover {
   opacity: .8;
+}
+
+.popup__button-submit:disabled {
+  opacity: .2;
+  pointer-events: none;
 }
 
 @media screen and (max-width: 400px) {

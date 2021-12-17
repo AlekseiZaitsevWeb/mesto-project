@@ -52,8 +52,14 @@
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form name="profile-edit" action="#" class="popup__form popup__form_type_profile-edit">
-        <input type="text" name="profile-name" class="popup__input-text popup__input_profile_name" placeholder="Имя" required>
-        <input type="text" name="profile-description" class="popup__input-text popup__input_profile_description" placeholder="О себе" required>
+        <section class="popup__form-section">
+          <input type="text" name="profile-name" class="popup__input-text popup__input_profile_name" placeholder="Имя" required>
+          <span class="popup__input-text-error"></span>
+        </section>
+        <section class="popup__form-section">
+          <input type="text" name="profile-description" class="popup__input-text popup__input_profile_description" placeholder="О себе" required>
+          <span class="popup__input-text-error"></span>
+        </section>
         <button class="popup__button-submit" type="submit">Сохранить</button>
       </form>
       <button class="popup__button-close" type="button"></button>
@@ -65,8 +71,14 @@
     <div class="popup__container">
       <h2 class="popup__title">Новое место</h2>
       <form name="place-add" action="#" class="popup__form popup__form_type_add-place">
-        <input type="text" name="place-name" class="popup__input-text popup__input_place_name" placeholder="Название" required>
-        <input type="text" name="place-link" class="popup__input-text popup__input_place_link" placeholder="Ссылка на картинку" required>
+        <section class="popup__form-section">
+          <input type="text" name="place-name" class="popup__input-text popup__input_place_name" placeholder="Название" required>
+          <span class="popup__input-text-error"></span>
+        </section>
+        <section class="popup__form-section">
+          <input type="text" name="place-link" class="popup__input-text popup__input_place_link" placeholder="Ссылка на картинку" required>
+          <span class="popup__input-text-error"></span>
+        </section>
         <button class="popup__button-submit" type="submit">Создать</button>
       </form>
       <button class="popup__button-close" type="button"></button>
@@ -96,7 +108,28 @@
     </li>
   </template>
   <!-- end card__template -->
-  <script src="./scripts/cards.js"></script>
-  <script src="./scripts/index.js"></script>
+  <script src="./components/index.js" type="module"></script>
 </body>
 </html>
+
+
+<!-- - при открытии popup кнопка серая, хотя текст в форму подгружается. Значит надо вызвать функцию toggleButtonState.
+Для этого стоит разбить код по модулям и уже подклчать функцию в другом модуле. -->
+
+
+
+
+<!-- Обработка событий
+   Что можно сделать в проекте
+Событий очень много, но начинать лучше с небольших кодерских подвигов. В проектной работе «Валидация форм в проекте Mesto» вы можете начать работать с функциональностью, которая отвечает за открытие и закрытие модальных окон. Например, после прохождения этой темы будет легко закрыть модальное окно по клику на оверлей или по нажатию на клавишу Esc.
+События пригодятся вам и при валидации форм, но сначала мы рекомендуем пройти следующую тему. А после — добавлять слушатели на сами поля ввода.
+В проектной работе «Взаимодействие с сервером в проекте Mesto» вы можете начать прорабатывать модальное окно для редактирования аватарки пользователя: написать всю логику открытия и закрытия модального окна, а также обработать событие при отправке формы. Все эти функции у вас уже написаны. Останется только добавить вёрстку модального окна, если код написан верно. -->
+
+<!-- Работа с формами
+Полученные знания помогут улучшить работу с формами в проекте: например, сбрасывать форму после нажатия кнопки submit. А полноценно переработать и добавить в проект новую функциональность вы сможете, когда пройдёте следующую тему. -->
+
+<!-- Валидация форм
+Тема валидации логически завершает обработку событий и работу с формами. А значит, вы можете реализовать большую часть проектной работы «Валидация форм в проекте Mesto».
+В проектной работе уже сейчас можно выполнить все задачи, которые связаны с валидацией форм. Часть кода, который вы написали в процессе изучения темы, можно переиспользовать в проектной работе. Но мы рекомендуем подойти к повторному использованию кода осмысленнее — при переносе его участков пользуйтесь дебаггом и отладчиком, чтобы изучить все передаваемые в функции значения и все операции, которые происходят в процессе выполнения функций.
+Умение осмысленно портировать уже написанный код в новое приложение — важный навык в обучении. Однажды разобравшись с тем, как работает тот или иной код, например со StackOverflow, разработчик легко сможет воспроизвести код повторно или улучшить его. В противном случае, при обычном копировании и переносе кода разработчик попадает в замкнутый круг — приходится из раза в раз копировать один и тот же код, который может и не совсем корректно работать.
+На этом небольшое наставление заканчивается. Не спешите сдавать работу на проверку после выполнения заданий по валидации форм — впереди вас ждут две очень важные темы про инфраструктуру приложения. -->

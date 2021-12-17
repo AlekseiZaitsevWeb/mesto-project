@@ -48,3 +48,7 @@
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__figure/popup__figure.css);
 @import url(../blocks/popup/__caption/popup__caption.css);
+@import url(../blocks/popup/__form-section/popup__form-section.css);
+@import url(../blocks/popup/__input-text-error/popup__input-text-error.css);
+@import url(../blocks/popup/__input-text-error/_active/popup__input-text-error_active.css);
+@import url(../blocks/popup/__input-text/_color/popup__input-text_color_error.css);
