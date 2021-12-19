@@ -1,6 +1,7 @@
-import {enableCard} from './card.js';
-import {enableModal} from './modal.js';
-import {enableValidation} from './validate.js';
+import './styles/index.css';
+import {enableCard} from './scripts/card';
+import {enableModal} from './scripts/modal.js';
+import {enableValidation} from './scripts/validate.js';
 
 
 enableCard({

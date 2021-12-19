@@ -1,3 +1,4 @@
+// Показываем текст и стили ошибки ввода
 const showInputError = (formSelector, inputElement, inputTextError, errorMessage, inputErrorClass, errorClass) => {
   const errorMessageElement = inputElement.closest(formSelector).querySelector(inputTextError);
 
@@ -7,6 +8,7 @@ const showInputError = (formSelector, inputElement, inputTextError, errorMessage
 }
 
 
+// Скрываем текст и стили ошибки ввода
 const hideInputError = (formSelector, inputElement, inputTextError, inputErrorClass, errorClass) => {
   const errorMessageElement = inputElement.closest(formSelector).querySelector(inputTextError);
 
@@ -16,6 +18,7 @@ const hideInputError = (formSelector, inputElement, inputTextError, inputErrorCl
 }
 
 
+// Показываем / скрываем текст и стили ошибки ввода
 const checkInputValidity = (formSelector, inputElement, inputTextError, inputErrorClass, errorClass) => {
   const isInputValid = inputElement.validity.valid;
 
@@ -28,6 +31,7 @@ const checkInputValidity = (formSelector, inputElement, inputTextError, inputErr
 }
 
 
+// Проверка полей формы на валидность
 function hasInvalidInput(inputListArray) {
   return inputListArray.some((inputElement) => {
     return !inputElement.validity.valid;
@@ -35,6 +39,7 @@ function hasInvalidInput(inputListArray) {
 }
 
 
+// Делаем кнопку submit неактивной если хотя бы одно поле не валидно
 function toggleButtonState(inputListArray, submitButtonElement) {
   if(hasInvalidInput(inputListArray)) {
     submitButtonElement.setAttribute('disabled', true);
@@ -44,6 +49,7 @@ function toggleButtonState(inputListArray, submitButtonElement) {
 }
 
 
+// Вешаем события input на все поля формы
 const setEventListeners = (formSelector, formElement, inputTextError, inputSelector, submitButtonSelector, inputErrorClass, errorClass) => {
   const inputListArray = Array.from(formElement.querySelectorAll(inputSelector));
   const submitButtonElement = formElement.querySelector(submitButtonSelector);
@@ -61,6 +67,7 @@ const setEventListeners = (formSelector, formElement, inputTextError, inputSelec
 }
 
 
+// Подключение валидации ко всем формам
 export const enableValidation = ({formSelector,
                             inputSelector,
                             inputTextError,
