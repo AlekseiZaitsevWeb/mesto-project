@@ -10,6 +10,17 @@ function closePopup(element, popupOpenedClass) {
 }
 
 
+// Закрытие popup по оверлей
+const closePopupByClickOnOverlay = ( popupOpenedClass ) => ( event ) => {
+  const target = event.target;
+  const currentTarget = event.currentTarget;
+
+  if (target === currentTarget) {
+    closePopup(event.currentTarget, popupOpenedClass);
+  }
+}
+
+
 // Добавление карточки
 function addPlace(popupElement, addPlaceNameInputElement, addPlaceLinknputElement, popupOpenedClass){
 
@@ -169,13 +180,21 @@ export const enableModal = ({
   // Список кнопкок закрытия popup
   const closeButtonElements = document.querySelectorAll(popupCloseButtonSelector);
 
+  // popup
+  const popupList = document.querySelectorAll(popupSelector);
+
   //--- Вешаю слушателей ---
 
-  // Закрытие popup
+  // Закрытие popup по кноке крестик
   closeButtonElements.forEach(closeButtonElement => {
     closeButtonElement.addEventListener('click', (evt) => {
       closePopup(evt.target.closest(popupSelector), popupOpenedClass);
     })
+  })
+
+  // Закрытие popup по оверлею
+  popupList.forEach(popup => {
+    popup.addEventListener('click', closePopupByClickOnOverlay(popupOpenedClass));
   })
 
   // Подключаю окно - Редактировать профиль
