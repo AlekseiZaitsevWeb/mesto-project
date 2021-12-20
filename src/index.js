@@ -1,7 +1,7 @@
 import './styles/index.css';
-import {enableCard} from './scripts/card';
-import {enableModal} from './scripts/modal.js';
-import {enableValidation} from './scripts/validate.js';
+import {enableCard} from './components/card';
+import {enableModal} from './components/modal.js';
+import {enableValidation} from './components/validate.js';
 
 
 enableCard({
@@ -32,6 +32,7 @@ enableModal({
 
 enableValidation({
   formSelector:               '.popup__form',
+  formSectionSelector:        '.popup__form-section',
   inputSelector:              '.popup__input-text',
   inputTextError:             '.popup__input-text-error',
   submitButtonSelector:       '.popup__button-submit',
