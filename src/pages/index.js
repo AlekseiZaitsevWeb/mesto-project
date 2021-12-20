@@ -1,7 +1,7 @@
-import './styles/index.css';
-import {enableCard} from './components/card';
-import {enableModal} from './components/modal.js';
-import {enableValidation} from './components/validate.js';
+import './index.css';
+import {enableCard} from '../components/card';
+import {enableModal} from '../components/modal.js';
+import {enableValidation} from '../components/validate.js';
 
 const popup = {
   selector:               '.popup',

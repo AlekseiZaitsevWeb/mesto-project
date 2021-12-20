@@ -168,6 +168,16 @@ export const enableModal = (popup, profilePopup, addPlacePopup, viewPopup, card)
     item.addEventListener('click', closePopupByClickOnOverlay(popup.openedClass));
   })
 
+  // Закрытие popup по кнопке Esc
+  document.addEventListener('keydown', function (event) {
+    if(event.key === 'Escape') {
+      const popupElementActive = document.querySelector(`.${popup.openedClass}`);
+      if(popupElementActive) {
+        closePopup(popupElementActive, popup.openedClass);
+      }
+    }
+  });
+
   // Подключаю окно - Редактировать профиль
   enableModalProfile(profilePopup, popup.openedClass);
 
