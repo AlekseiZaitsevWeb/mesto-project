@@ -7,21 +7,20 @@
   <meta name="keywords" content="Проект Место, Яндекс Практикум">
   <meta name="author" content="Алексей Зайцев">
   <title>Место</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="root">
   <!-- page -->
   <div class="page centered-block">
     <!-- header -->
     <header class="header">
-      <a href="/"><img src="./images/logo.svg" alt="Место" class="header__logo"></a>
+      <a href="/"><img src="<%=require('./images/logo.svg')%>" alt="Место" class="header__logo"></a>
     </header>
     <!-- end header -->
     <!-- main -->
     <main class="content">
       <!-- profile -->
       <section class="profile content__profile">
-        <img src="./images/profile-avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+        <img src="<%=require('./images/profile-avatar.jpg')%>" alt="Жак-Ив Кусто" class="profile__avatar">
         <div class="profile__text">
           <div class="profile__name-edit">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -53,11 +52,11 @@
       <h2 class="popup__title">Редактировать профиль</h2>
       <form name="profile-edit" action="#" class="popup__form popup__form_type_profile-edit">
         <section class="popup__form-section">
-          <input type="text" name="profile-name" class="popup__input-text popup__input_profile_name" placeholder="Имя" required>
+          <input type="text" name="profile-name" class="popup__input-text popup__input_profile_name" placeholder="Имя" minlength="2" maxlength="40" required>
           <span class="popup__input-text-error"></span>
         </section>
         <section class="popup__form-section">
-          <input type="text" name="profile-description" class="popup__input-text popup__input_profile_description" placeholder="О себе" required>
+          <input type="text" name="profile-description" class="popup__input-text popup__input_profile_description" placeholder="О себе" minlength="2" maxlength="200" required>
           <span class="popup__input-text-error"></span>
         </section>
         <button class="popup__button-submit" type="submit">Сохранить</button>
@@ -72,11 +71,11 @@
       <h2 class="popup__title">Новое место</h2>
       <form name="place-add" action="#" class="popup__form popup__form_type_add-place">
         <section class="popup__form-section">
-          <input type="text" name="place-name" class="popup__input-text popup__input_place_name" placeholder="Название" required>
+          <input type="text" name="place-name" class="popup__input-text popup__input_place_name" placeholder="Название" minlength="2" maxlength="30" required>
           <span class="popup__input-text-error"></span>
         </section>
         <section class="popup__form-section">
-          <input type="text" name="place-link" class="popup__input-text popup__input_place_link" placeholder="Ссылка на картинку" required>
+          <input type="url" name="place-link" class="popup__input-text popup__input_place_link" placeholder="Ссылка на картинку" required>
           <span class="popup__input-text-error"></span>
         </section>
         <button class="popup__button-submit" type="submit">Создать</button>
@@ -108,7 +107,6 @@
     </li>
   </template>
   <!-- end card__template -->
-  <script src="./components/index.js" type="module"></script>
 </body>
 </html>
 
@@ -133,3 +131,10 @@
 В проектной работе уже сейчас можно выполнить все задачи, которые связаны с валидацией форм. Часть кода, который вы написали в процессе изучения темы, можно переиспользовать в проектной работе. Но мы рекомендуем подойти к повторному использованию кода осмысленнее — при переносе его участков пользуйтесь дебаггом и отладчиком, чтобы изучить все передаваемые в функции значения и все операции, которые происходят в процессе выполнения функций.
 Умение осмысленно портировать уже написанный код в новое приложение — важный навык в обучении. Однажды разобравшись с тем, как работает тот или иной код, например со StackOverflow, разработчик легко сможет воспроизвести код повторно или улучшить его. В противном случае, при обычном копировании и переносе кода разработчик попадает в замкнутый круг — приходится из раза в раз копировать один и тот же код, который может и не совсем корректно работать.
 На этом небольшое наставление заканчивается. Не спешите сдавать работу на проверку после выполнения заданий по валидации форм — впереди вас ждут две очень важные темы про инфраструктуру приложения. -->
+
+
+
+
+<!-- Сборка проекта. Webpack
+Что можно сделать в проекте
+Webpack — последняя тема, которая необходима для выполнения проекта «Валидация форм в проекте Mesto». Теперь вы знаете всё, что необходимо. Сейчас самое время перейти в проект и настроить в нём сборку и транспиляцию кода — ваш код должен стать модульным, а все требования из пункта задания «Настройка сборки Webpack» проекта должны быть выполнены. -->
