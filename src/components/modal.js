@@ -139,7 +139,7 @@ const enableModalAddPlace = (
 
 
 // Открытие popup view
-function openPopupView(data, viewPopupSelector, viewPopupImageSelector, viewPopupCaptionSelector){
+export function openPopupView(data, viewPopupSelector, viewPopupImageSelector, viewPopupCaptionSelector, popupOpenedClass){
 
   // Получаю элемент popup wiew
   const popupImageElement = document.querySelector(viewPopupSelector);
@@ -152,7 +152,7 @@ function openPopupView(data, viewPopupSelector, viewPopupImageSelector, viewPopu
   captionElement.textContent = data.name;
 
   // Открываю popup
-  openPopup(popupImageElement);
+  openPopup(popupImageElement, popupOpenedClass);
 }
 
 

@@ -3,13 +3,20 @@ import {enableCard} from './components/card';
 import {enableModal} from './components/modal.js';
 import {enableValidation} from './components/validate.js';
 
-
 enableCard({
+  cardTemplateSelector:       '.card__template',
+  cardWrapSelector:           '.photo-grid__items',
+  cardItemSelector:           '.photo-grid__item',
+  cardImageSelector:          '.photo-grid__image',
+  cardImageCaptionSelector:   '.photo-grid__image-title',
+  cardLikeButtonSelector:     '.photo-grid__like-button',
+  cardDeleteButtonSelector:   '.photo-grid__delete-button',
+  cardLikeButtonActiveClass:  'photo-grid__like-button_active',
   viewPopupSelector:          '.popup_type_view',
   viewPopupImageSelector:     '.popup__image',
-  viewPopupCaptionSelector:   '.popup__caption'
+  viewPopupCaptionSelector:   '.popup__caption',
+  viewPopupOpenedClass:       'popup_opened'
 });
-
 
 enableModal({
   popupSelector:              '.popup',
@@ -28,7 +35,6 @@ enableModal({
   addPlaceLinknputSelector:   '.popup__input_place_link',
   popupOpenedClass:           'popup_opened'
 });
-
 
 enableValidation({
   formSelector:               '.popup__form',

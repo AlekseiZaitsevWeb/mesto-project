@@ -1,97 +1,107 @@
-export const cards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-
-  ];
-
-
-  export const enableCard = ({
-    viewPopupSelector,
-    viewPopupImageSelector,
-    viewPopupCaptionSelector
-  }) => {
-    // Вывожу карточки при загрузке страницы
-    loadCards(cards);
-  }
-
-
-  // Получаю шаблон карточки
-const cardTemplate = document.querySelector('.card__template').content;
-
-// Врапер для карточек
-const wrapCardsElement =  document.querySelector('.photo-grid__items');
+import {cards} from './data.js';
+import {openPopupView} from './modal.js';
 
 // Активация кнопки Like карточки
-function activeCardLikeButton(element){
-  element.classList.toggle('photo-grid__like-button_active')
+function activeCardLikeButton(element, cardLikeButtonActiveClass){
+  element.classList.toggle(cardLikeButtonActiveClass)
 }
+
 
 // Удаление карточки
-function deleteCard(element){
-  element.closest('.photo-grid__item').remove()
+function deleteCard(element, cardItemSelector){
+  element.closest(cardItemSelector).remove();
 }
 
+
 // Создание карточки
-function createCardElement(data) {
+function createCardElement(data, cardTemplateElement, cardLikeButtonActiveClass, cardItemSelector, cardImageSelector, cardImageCaptionSelector, cardLikeButtonSelector, cardDeleteButtonSelector, viewPopupSelector, viewPopupImageSelector,viewPopupCaptionSelector, viewPopupOpenedClass) {
 
   // Клонирую шаблон карточки
-  const cardElement = cardTemplate.querySelector('.photo-grid__item').cloneNode(true);
+  const cardElement = cardTemplateElement.querySelector(cardItemSelector).cloneNode(true);
 
   // Вношу данные
-  const cardImageElement = cardElement.querySelector('.photo-grid__image');
+  const cardImageElement = cardElement.querySelector(cardImageSelector);
   cardImageElement.src = data.link;
   cardImageElement.alt = `Изображение ${data.name}`;
-  const cardTitleElement = cardElement.querySelector('.photo-grid__image-title');
+  const cardTitleElement = cardElement.querySelector(cardImageCaptionSelector);
   cardTitleElement.textContent = data.name;
 
   // Вешаю слушателей ---
 
   // Кнопка Like
-  const cardLikeBtnElement = cardElement.querySelector('.photo-grid__like-button');
-  cardLikeBtnElement.addEventListener('click', () => activeCardLikeButton(cardLikeBtnElement));
+  const cardLikeBtnElement = cardElement.querySelector(cardLikeButtonSelector);
+  cardLikeBtnElement.addEventListener('click', () => activeCardLikeButton(cardLikeBtnElement, cardLikeButtonActiveClass));
 
   // Удаление карты
-  const cardDeleteBtnElement = cardElement.querySelector('.photo-grid__delete-button');
-  cardDeleteBtnElement.addEventListener('click', (evt) => deleteCard(evt.target));
+  const cardDeleteBtnElement = cardElement.querySelector(cardDeleteButtonSelector);
+  cardDeleteBtnElement.addEventListener('click', (evt) => deleteCard(evt.target, cardItemSelector));
 
   // Открытие картинки
-  cardImageElement.addEventListener('click', (evt) => openPopupView({src: data.link, name: data.name}));
+  cardImageElement.addEventListener('click', (evt) => openPopupView({src: data.link, name: data.name}, viewPopupSelector, viewPopupImageSelector,viewPopupCaptionSelector, viewPopupOpenedClass));
 
   // Возвращаю элемент карточки
   return cardElement;
 
 }
 
-// Вывод карточки
-function renderCard(cardElement) {
+
+// Вывод одной карточки
+function renderCard(cardElement, wrapCardsElement) {
   wrapCardsElement.prepend(cardElement);
 }
 
+
 // Вывожу карточки при загрузке страницы
-export function loadCards(data) {
-  data.forEach(item => renderCard(createCardElement(item)));
+export function loadCards(
+  data,
+  cardTemplateElement,
+  wrapCardsElement,
+  cardLikeButtonActiveClass,
+  cardItemSelector,
+  cardImageSelector,
+  cardImageCaptionSelector,
+  cardLikeButtonSelector,
+  cardDeleteButtonSelector,
+  viewPopupSelector,
+  viewPopupImageSelector,
+  viewPopupCaptionSelector,
+  viewPopupOpenedClass
+  ) {
+  data.forEach(item => renderCard(createCardElement(item, cardTemplateElement, cardLikeButtonActiveClass, cardItemSelector, cardImageSelector, cardImageCaptionSelector, cardLikeButtonSelector, cardDeleteButtonSelector, viewPopupSelector, viewPopupImageSelector,viewPopupCaptionSelector, viewPopupOpenedClass), wrapCardsElement));
+}
+
+
+// Подключение карточек
+export const enableCard = ({
+  cardTemplateSelector,
+  cardWrapSelector,
+  cardItemSelector,
+  cardImageSelector,
+  cardImageCaptionSelector,
+  cardLikeButtonSelector,
+  cardDeleteButtonSelector,
+  cardLikeButtonActiveClass,
+  viewPopupSelector,
+  viewPopupImageSelector,
+  viewPopupCaptionSelector,
+  viewPopupOpenedClass
+}) => {
+
+  // ---  Получаю элементы  ---
+
+  // Получаю шаблон карточки
+  const cardTemplateElement = document.querySelector(cardTemplateSelector).content;
+
+  // Врапер для карточек
+  const wrapCardsElement =  document.querySelector(cardWrapSelector);
+
+
+  // ---  Слушатели и действия
+
+
+  // Вывожу карточки при загрузке страницы
+  loadCards(cards, cardTemplateElement, wrapCardsElement, cardLikeButtonActiveClass, cardItemSelector, cardImageSelector, cardImageCaptionSelector, cardLikeButtonSelector, cardDeleteButtonSelector, viewPopupSelector, viewPopupImageSelector,viewPopupCaptionSelector, viewPopupOpenedClass);
+
 }
 
 
