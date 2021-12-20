@@ -1,82 +1,81 @@
+import {renderCard, createCardElement} from './card.js';
+
 // Открытие popup
-function openPopup(element, popupOpenedClass) {
-  element.classList.add(popupOpenedClass);
+function openPopup(element, openedClass) {
+  element.classList.add(openedClass);
 }
 
 
 // Закрытие popup
-function closePopup(element, popupOpenedClass) {
-  element.classList.remove(popupOpenedClass);
+function closePopup(element, openedClass) {
+  element.classList.remove(openedClass);
 }
 
 
 // Закрытие popup по оверлей
-const closePopupByClickOnOverlay = ( popupOpenedClass ) => ( event ) => {
+const closePopupByClickOnOverlay = ( openedClass ) => ( event ) => {
   const target = event.target;
   const currentTarget = event.currentTarget;
 
   if (target === currentTarget) {
-    closePopup(event.currentTarget, popupOpenedClass);
+    closePopup(event.currentTarget, openedClass);
   }
 }
 
 
 // Добавление карточки
-function addPlace(popupElement, addPlaceNameInputElement, addPlaceLinknputElement, popupOpenedClass){
+function addPlace(popupElement, nameInputElement, linkInputElement, card, viewPopup, openedClass){
+
+  // Получаю шаблон карточки
+  const cardTemplateElement = document.querySelector(card.templateSelector).content;
+
+  // Врапер для карточек
+  const wrapCardsElement =  document.querySelector(card.wrapSelector);
 
   // Создаю и вывожу карточку
-  //renderCard(createCardElement({name: nameInputPlaceAdd.value, link: linkInputPlaceAdd.value}));
+  renderCard(createCardElement({name: nameInputElement.value, link: linkInputElement.value}, cardTemplateElement, card, viewPopup, openedClass), wrapCardsElement);
 
   // Закрываю окно
-  closePopup(popupElement, popupOpenedClass);
+  closePopup(popupElement, openedClass);
 
   // Очищаю поля
-  addPlaceNameInputElement.value = '';
-  addPlaceLinknputElement.value = '';
+  nameInputElement.value = '';
+  linkInputElement.value = '';
 }
 
 
 // Сохранение введенных данные в профиль
-function saveEditProfile(popupElement, nameTextElement, jobTextElement,  nameInputElement, jobInputElement, popupOpenedClass){
+function saveEditProfile(popupElement, nameTextElement, jobTextElement,  nameInputElement, jobInputElement, openedClass){
 
   // Записываю значения в профиль
   nameTextElement.textContent = nameInputElement.value;
   jobTextElement.textContent = jobInputElement.value;
 
   // Закрываю окно
-  closePopup(popupElement, popupOpenedClass);
+  closePopup(popupElement, openedClass);
 }
 
 
-const enableModalProfile = (
-  profilePopupSelector,
-  profileEditButtonSelector,
-  profileNameTextSelector,
-  profileJobTextSelector,
-  profileNameInputSelector,
-  profileJobInputSelector,
-  profileFormSelector,
-  popupOpenedClass
-) => {
+const enableModalProfile = (profilePopup, openedClass) => {
 
   //--- Получаю элементы ---
 
   // Кнопка редактировать профиль
-  const profileEditBtnElement = document.querySelector(profileEditButtonSelector);
+  const profileEditBtnElement = document.querySelector(profilePopup.editButtonSelector);
 
   // Popup Profile Edit
-  const popupProfileEditElement = document.querySelector(profilePopupSelector);
+  const popupProfileEditElement = document.querySelector(profilePopup.selector);
 
   // Получаю элементы полей в профиле
-  const nameTextElement = document.querySelector(profileNameTextSelector);
-  const jobTextElement  = document.querySelector(profileJobTextSelector);
+  const nameTextElement = document.querySelector(profilePopup.nameTextSelector);
+  const jobTextElement  = document.querySelector(profilePopup.jobTextSelector);
 
   // Получаю инпуты из формы редактирования профиля
-  const nameInputElement = popupProfileEditElement.querySelector(profileNameInputSelector);
-  const jobInputElement  = popupProfileEditElement.querySelector(profileJobInputSelector);
+  const nameInputElement = popupProfileEditElement.querySelector(profilePopup.nameInputSelector);
+  const jobInputElement  = popupProfileEditElement.querySelector(profilePopup.jobInputSelector);
 
   // Форма Profile Edit
-  const formProfileEditElement = popupProfileEditElement.querySelector(profileFormSelector);
+  const formProfileEditElement = popupProfileEditElement.querySelector(profilePopup.formSelector);
 
 
   //--- Вешаю слушателей ---
@@ -90,131 +89,88 @@ const enableModalProfile = (
     jobInputElement.value = jobTextElement.textContent;
 
     // Открываю popup
-    openPopup(popupProfileEditElement, popupOpenedClass);
+    openPopup(popupProfileEditElement, openedClass);
   });
 
   // Сохранение данных в профиле
   formProfileEditElement.addEventListener('submit', (evt) => {
-    saveEditProfile(popupProfileEditElement, nameTextElement, jobTextElement,  nameInputElement, jobInputElement, popupOpenedClass);
+    saveEditProfile(popupProfileEditElement, nameTextElement, jobTextElement,  nameInputElement, jobInputElement, openedClass);
   });
 }
 
 
-const enableModalAddPlace = (
-  addPlacePopupSelector,
-  addPlaceButtonSelector,
-  addPlaceFormSelector,
-  addPlaceNameInputSelector,
-  addPlaceLinknputSelector,
-  popupOpenedClass
-) => {
+const enableModalAddPlace = (addPlacePopup, openedClass, card, viewPopup) => {
 
   //--- Получаю элементы ---
 
-
   // Popup Place Add
-  const popupPlaceAddElement = document.querySelector(addPlacePopupSelector);
+  const popupPlaceAddElement = document.querySelector(addPlacePopup.selector);
 
   // Кнопка добавить место
-  const placeAddBtnElement = document.querySelector(addPlaceButtonSelector);
+  const placeAddBtnElement = document.querySelector(addPlacePopup.buttonSelector);
 
   // Форма добавления места
-  const formPlaceAddElement = popupPlaceAddElement.querySelector(addPlaceFormSelector);
+  const formPlaceAddElement = popupPlaceAddElement.querySelector(addPlacePopup.formSelector);
 
   // Получаю значения полей из формы
-  const addPlaceNameInputElement = formPlaceAddElement.querySelector(addPlaceNameInputSelector);
-  const addPlaceLinknputElement = formPlaceAddElement.querySelector(addPlaceLinknputSelector);
+  const addPlaceNameInputElement = formPlaceAddElement.querySelector(addPlacePopup.nameInputSelector);
+  const addPlaceLinkInputElement = formPlaceAddElement.querySelector(addPlacePopup.linkInputSelector);
 
   //--- Вешаю слушателей ---
 
-
   // Открытие popup add place
-  placeAddBtnElement.addEventListener('click', () => openPopup(popupPlaceAddElement, popupOpenedClass));
+  placeAddBtnElement.addEventListener('click', () => openPopup(popupPlaceAddElement, openedClass));
 
   // Добавление карточки
   formPlaceAddElement.addEventListener('submit', (evt) => {
-    addPlace(popupPlaceAddElement, addPlaceNameInputElement, addPlaceLinknputElement, popupOpenedClass);
+    addPlace(popupPlaceAddElement, addPlaceNameInputElement, addPlaceLinkInputElement, card, viewPopup, openedClass);
   });
 }
 
 
 // Открытие popup view
-export function openPopupView(data, viewPopupSelector, viewPopupImageSelector, viewPopupCaptionSelector, popupOpenedClass){
+export function openPopupView(data, viewPopup, openedClass){
 
   // Получаю элемент popup wiew
-  const popupImageElement = document.querySelector(viewPopupSelector);
+  const popupImageElement = document.querySelector(viewPopup.selector);
 
   // Загружаю данные
-  const imageElement = popupImageElement.querySelector(viewPopupImageSelector);
-  imageElement.setAttribute('src', data.src);
+  const imageElement = popupImageElement.querySelector(viewPopup.imageSelector);
+  imageElement.setAttribute('src', data.link);
   imageElement.setAttribute('alt', `Изображение ${data.name}`);
-  const captionElement = popupImageElement.querySelector(viewPopupCaptionSelector);
+  const captionElement = popupImageElement.querySelector(viewPopup.captionSelector);
   captionElement.textContent = data.name;
 
   // Открываю popup
-  openPopup(popupImageElement, popupOpenedClass);
+  openPopup(popupImageElement, openedClass);
 }
 
 
-export const enableModal = ({
-  popupSelector,
-  popupCloseButtonSelector,
-  profilePopupSelector,
-  profileEditButtonSelector,
-  profileNameTextSelector,
-  profileJobTextSelector,
-  profileNameInputSelector,
-  profileJobInputSelector,
-  profileFormSelector,
-  addPlacePopupSelector,
-  addPlaceButtonSelector,
-  addPlaceFormSelector,
-  addPlaceNameInputSelector,
-  addPlaceLinknputSelector,
-  popupOpenedClass
-}) => {
-
-  //--- Получаю общие элементы ---
-
+export const enableModal = (popup, profilePopup, addPlacePopup, viewPopup, card) => {
 
   // Список кнопкок закрытия popup
-  const closeButtonElements = document.querySelectorAll(popupCloseButtonSelector);
+  const closeButtonElements = document.querySelectorAll(popup.closeButtonSelector);
 
   // popup
-  const popupList = document.querySelectorAll(popupSelector);
+  const popupList = document.querySelectorAll(popup.selector);
 
   //--- Вешаю слушателей ---
 
   // Закрытие popup по кноке крестик
   closeButtonElements.forEach(closeButtonElement => {
     closeButtonElement.addEventListener('click', (evt) => {
-      closePopup(evt.target.closest(popupSelector), popupOpenedClass);
+      closePopup(evt.target.closest(popup.selector), popup.openedClass);
     })
   })
 
   // Закрытие popup по оверлею
-  popupList.forEach(popup => {
-    popup.addEventListener('click', closePopupByClickOnOverlay(popupOpenedClass));
+  popupList.forEach(item => {
+    item.addEventListener('click', closePopupByClickOnOverlay(popup.openedClass));
   })
 
   // Подключаю окно - Редактировать профиль
-  enableModalProfile(
-    profilePopupSelector,
-    profileEditButtonSelector,
-    profileNameTextSelector,
-    profileJobTextSelector,
-    profileNameInputSelector,
-    profileJobInputSelector,
-    profileFormSelector,
-    popupOpenedClass);
+  enableModalProfile(profilePopup, popup.openedClass);
 
   // Подключаю окно - Добавить место
-  enableModalAddPlace(
-    addPlacePopupSelector,
-    addPlaceButtonSelector,
-    addPlaceFormSelector,
-    addPlaceNameInputSelector,
-    addPlaceLinknputSelector,
-    popupOpenedClass
-  );
+  enableModalAddPlace(addPlacePopup, popup.openedClass, card, viewPopup);
 }
