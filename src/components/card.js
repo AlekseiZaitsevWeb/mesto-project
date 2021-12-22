@@ -1,18 +1,16 @@
+import {selectors, classAction} from './utils/constants';
 import {cards} from './data.js';
 import {openPopupView} from './modal.js';
-
 
 // Активация кнопки Like карточки
 function activeCardLikeButton(element, likeButtonActiveClass){
   element.classList.toggle(likeButtonActiveClass)
 }
 
-
 // Удаление карточки
 function deleteCard(element, itemSelector){
   element.closest(itemSelector).remove();
 }
-
 
 // Создание карточки
 export function createCardElement(data, cardTemplateElement, card, viewPopup, openedClass) {
