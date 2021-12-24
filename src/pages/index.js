@@ -3,10 +3,8 @@ import {enableCard} from '../components/card';
 import {enableModal} from '../components/modal.js';
 import {enableValidation} from '../components/validate.js';
 
-//enableCard(card, viewPopup, popup.openedClass);
 enableCard();
 
-//enableModal(popup, profilePopup, addPlacePopup, viewPopup, card);
 enableModal();
 
 enableValidation({

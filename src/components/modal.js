@@ -1,9 +1,8 @@
 import {selectors, classAction} from './utils/constants';
-import {renderCard, createCardElement} from './card.js';
+import {addCard} from './card.js';
 
 // popup
 const popupList = document.querySelectorAll(selectors.popupSelector);
-const popupCloseButtonList = document.querySelectorAll(selectors.popupCloseButtonSelector);
 // profileEdit
 const profileEditButtonElement = document.querySelector(selectors.profileEditButtonSelector);
 const profileNameTextElement = document.querySelector(selectors.profileNameTextSelector);
@@ -26,13 +25,27 @@ const addPlacePopupSubmitButtonElement = addPlacePopupElement.querySelector(sele
 const viewPopupElement = document.querySelector(selectors.viewPopupSelector);
 const viewPopupImageElement = viewPopupElement.querySelector(selectors.viewPopupImageSelector);
 const viewPopupCaptionElement = viewPopupElement.querySelector(selectors.viewPopupCaptionSelector);
-// card
-const cardTemplateElement = document.querySelector(selectors.cardTemplateSelector).content;
-const cardWrapElement =  document.querySelector(selectors.cardWrapSelector);
+
+// Закрытие popup по кнопке Escape
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const popupElementActive = document.querySelector(`.${classAction.popupOpenedClass}`);
+    if(popupElementActive) {
+      closePopup(popupElementActive);
+    }
+  }
+}
 
 // Открытие popup
 function openPopup(element) {
   element.classList.add(classAction.popupOpenedClass);
+  document.addEventListener('keydown', closeByEscape);
+}
+
+// Закрытие popup
+function closePopup(element) {
+  element.classList.remove(classAction.popupOpenedClass);
+  document.removeEventListener('keydown', closeByEscape);
 }
 
 // Открытие popup view
@@ -41,11 +54,6 @@ export function openPopupView(data){
   viewPopupImageElement.setAttribute('alt', `Изображение ${data.name}`);
   viewPopupCaptionElement.textContent = data.name;
   openPopup(viewPopupElement);
-}
-
-// Закрытие popup
-function closePopup(element) {
-  element.classList.remove(classAction.popupOpenedClass);
 }
 
 // Закрытие popup по оверлей
@@ -79,7 +87,7 @@ const enableModalProfile = () => {
 // Добавление карточки
 function addPlace(event){
   event.preventDefault();
-  renderCard(createCardElement({name: profilePopupNameInputElement.value, link: profilePopupJobInputElement.value}, cardTemplateElement, card, viewPopup, openedClass), cardWrapElement);
+  addCard(addPlacePopupNameInputElement.value, addPlacePopupLinkInputElement.value);
   closePopup(addPlacePopupElement);
   addPlacePopupNameInputElement.value = '';
   addPlacePopupLinkInputElement.value = '';
@@ -96,20 +104,15 @@ const enableModalAddPlace = () => {
 export const enableModal = () => {
   enableModalProfile();
   enableModalAddPlace();
-  popupCloseButtonList.forEach(closeButtonElement => {
-    closeButtonElement.addEventListener('click', (evt) => {
-      closePopup(evt.target.closest(selectors.popupSelector));
+
+  popupList.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains(classAction.popupOpenedClass)) {
+        closePopup(popup)
+      }
+      if (evt.target.classList.contains(classAction.popupCloseButtonSelector)) {
+        closePopup(popup)
+      }
     })
   })
-  popupList.forEach(item => {
-    item.addEventListener('click', closePopupByClickOnOverlay);
-  })
-  document.addEventListener('keydown', function (event) {
-    if(event.key === 'Escape') {
-      const popupElementActive = document.querySelector(`.${popup.openedClass}`);
-      if(popupElementActive) {
-        closePopup(popupElementActive);
-      }
-    }
-  });
 }

@@ -7,7 +7,6 @@ const showInputError = (formSectionSelector, inputElement, inputTextError, error
   errorMessageElement.textContent = errorMessage;
 }
 
-
 // Скрываем текст и стили ошибки ввода
 const hideInputError = (formSectionSelector, inputElement, inputTextError, inputErrorClass, errorClass) => {
   const errorMessageElement = inputElement.closest(formSectionSelector).querySelector(inputTextError);
@@ -16,7 +15,6 @@ const hideInputError = (formSectionSelector, inputElement, inputTextError, input
   errorMessageElement.classList.remove(errorClass);
   errorMessageElement.textContent = '';
 }
-
 
 // Показываем / скрываем текст и стили ошибки ввода
 const checkInputValidity = (formSectionSelector, inputElement, inputTextError, inputErrorClass, errorClass) => {
@@ -30,14 +28,12 @@ const checkInputValidity = (formSectionSelector, inputElement, inputTextError, i
   }
 }
 
-
 // Проверка полей формы на валидность
 function hasInvalidInput(inputListArray) {
   return inputListArray.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 }
-
 
 // Делаем кнопку submit неактивной если хотя бы одно поле не валидно
 function toggleButtonState(inputListArray, submitButtonElement) {
@@ -47,7 +43,6 @@ function toggleButtonState(inputListArray, submitButtonElement) {
     submitButtonElement.removeAttribute('disabled');
   }
 }
-
 
 // Вешаем события input на все поля формы
 const setEventListeners = (formSectionSelector, formElement, inputTextError, inputSelector, submitButtonSelector, inputErrorClass, errorClass) => {
@@ -65,7 +60,6 @@ const setEventListeners = (formSectionSelector, formElement, inputTextError, inp
     inputElement.addEventListener('input', handleInput);
   });
 }
-
 
 // Подключение валидации ко всем формам
 export const enableValidation = ({formSelector,

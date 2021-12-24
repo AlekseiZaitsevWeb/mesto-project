@@ -2,6 +2,9 @@ import {selectors, classAction} from './utils/constants';
 import {cards} from './data.js';
 import {openPopupView} from './modal.js';
 
+const cardTemplateElement = document.querySelector(selectors.cardTemplateSelector).content;
+const wrapCardsElement =  document.querySelector(selectors.cardWrapSelector);
+
 // Активация кнопки Like карточки
 function activeCardLikeButton(element, likeButtonActiveClass){
   element.classList.toggle(likeButtonActiveClass)
@@ -13,58 +16,40 @@ function deleteCard(element, itemSelector){
 }
 
 // Создание карточки
-export function createCardElement(data, cardTemplateElement, card, viewPopup, openedClass) {
-
-  // Клонирую шаблон карточки
-  const cardElement = cardTemplateElement.querySelector(card.itemSelector).cloneNode(true);
-
-  // Вношу данные
-  const cardImageElement = cardElement.querySelector(card.imageSelector);
+function createCardElement(data) {
+  const cardElement = cardTemplateElement.querySelector(selectors.cardItemSelector).cloneNode(true);
+  const cardImageElement = cardElement.querySelector(selectors.cardImageSelector);
   cardImageElement.src = data.link;
   cardImageElement.alt = `Изображение ${data.name}`;
-  const cardTitleElement = cardElement.querySelector(card.imageCaptionSelector);
+  const cardTitleElement = cardElement.querySelector(selectors.cardImageCaptionSelector);
   cardTitleElement.textContent = data.name;
-
-  // Вешаю слушателей ---
-
   // Кнопка Like
-  const cardLikeBtnElement = cardElement.querySelector(card.likeButtonSelector);
-  cardLikeBtnElement.addEventListener('click', () => activeCardLikeButton(cardLikeBtnElement, card.likeButtonActiveClass));
-
+  const cardLikeBtnElement = cardElement.querySelector(selectors.cardLikeButtonSelector);
+  cardLikeBtnElement.addEventListener('click', () => activeCardLikeButton(cardLikeBtnElement, classAction.cardLikeButtonActiveClass));
   // Удаление карты
-  const cardDeleteBtnElement = cardElement.querySelector(card.deleteButtonSelector);
-  cardDeleteBtnElement.addEventListener('click', (evt) => deleteCard(evt.target, card.itemSelector));
-
+  const cardDeleteBtnElement = cardElement.querySelector(selectors.cardDeleteButtonSelector);
+  cardDeleteBtnElement.addEventListener('click', (evt) => deleteCard(evt.target, selectors.cardItemSelector));
   // Открытие картинки
-  cardImageElement.addEventListener('click', (evt) => openPopupView({link: data.link, name: data.name}, viewPopup, openedClass));
-
-  // Возвращаю элемент карточки
+  cardImageElement.addEventListener('click', (evt) => openPopupView({link: data.link, name: data.name}));
   return cardElement;
-
 }
 
-
 // Вывод одной карточки
-export function renderCard(cardElement, wrapCardsElement) {
+function renderCard(cardElement) {
   wrapCardsElement.prepend(cardElement);
 }
 
-
-// Вывожу карточки при загрузке страницы
-export function loadCards(cards, cardTemplateElement, wrapCardsElement, card, viewPopup, openedClass) {
-  cards.forEach(item => renderCard(createCardElement(item, cardTemplateElement, card, viewPopup, openedClass), wrapCardsElement));
+// Добавление карточки
+export const addCard = (name, link) => {
+  renderCard(createCardElement({name: name, link: link}));
 }
 
+// Вывожу карточки при загрузке страницы
+function loadCards() {
+  cards.forEach(item => addCard(item.name, item.link));
+}
 
 // Подключение карточек
-export const enableCard = (card, viewPopup, openedClass) => {
-
-  // Получаю шаблон карточки
-  const cardTemplateElement = document.querySelector(card.templateSelector).content;
-
-  // Врапер для карточек
-  const wrapCardsElement =  document.querySelector(card.wrapSelector);
-
-  // Вывожу карточки при загрузке страницы
-  loadCards(cards, cardTemplateElement, wrapCardsElement, card, viewPopup, openedClass);
+export const enableCard = () => {
+  loadCards();
 }
