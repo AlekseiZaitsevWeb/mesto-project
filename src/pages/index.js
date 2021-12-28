@@ -3,6 +3,11 @@ import {enableCard} from '../components/card';
 import {enableModal} from '../components/modal.js';
 import {enableValidation} from '../components/validate.js';
 
+import {config} from '../components/utils/constants.js';
+
+console.log(config);
+console.log(config.headers);
+
 enableCard();
 
 enableModal();

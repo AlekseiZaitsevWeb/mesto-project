@@ -1,3 +1,11 @@
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-5',
+  headers: {
+    authorization: 'c7ce723e-eaab-417b-b741-f3f9269dcb44',
+    'Content-Type': 'application/json'
+  }
+}
+
 const selectors = {
   // popup
   popupSelector:                        '.popup',
@@ -41,4 +49,4 @@ const classAction = {
   cardLikeButtonActiveClass:            'photo-grid__like-button_active'
 }
 
-export {selectors, classAction}
+export {config, selectors, classAction}
