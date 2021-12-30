@@ -1,5 +1,4 @@
-import {selectors, classAction} from './utils/constants';
-import {cards} from './data.js';
+import {selectors, classAction} from './utils/constants.js';
 import {openPopupView} from './modal.js';
 
 const cardTemplateElement = document.querySelector(selectors.cardTemplateSelector).content;
@@ -16,21 +15,41 @@ function deleteCard(element, itemSelector){
 }
 
 // Создание карточки
-function createCardElement(data) {
+function createCardElement(card, userId) {
+
+
+
   const cardElement = cardTemplateElement.querySelector(selectors.cardItemSelector).cloneNode(true);
   const cardImageElement = cardElement.querySelector(selectors.cardImageSelector);
-  cardImageElement.src = data.link;
-  cardImageElement.alt = `Изображение ${data.name}`;
+
+  cardImageElement.src = card.link;
+  cardImageElement.alt = `Изображение ${card.name}`;
+
   const cardTitleElement = cardElement.querySelector(selectors.cardImageCaptionSelector);
-  cardTitleElement.textContent = data.name;
+  cardTitleElement.textContent = card.name;
+
   // Кнопка Like
+  // 1) загрузить состояние активности сердечка, если есть id то подсветить, если нет то нет
+  // 2) при нажатии отправлять на сервер данные о лайке и потом вызывать функцию запроса состояния лайка на сервер и по ответу отрисовывать
+
+  // нужны функции:
+  // 1) получения всех лайков, это будет количество и в нем буду искать ID для отрисовки активности лайка
+  // 2) При нажатии отправка данных о лайке и выполнение функции 1)
+
   const cardLikeBtnElement = cardElement.querySelector(selectors.cardLikeButtonSelector);
   cardLikeBtnElement.addEventListener('click', () => activeCardLikeButton(cardLikeBtnElement, classAction.cardLikeButtonActiveClass));
+
+
   // Удаление карты
-  const cardDeleteBtnElement = cardElement.querySelector(selectors.cardDeleteButtonSelector);
-  cardDeleteBtnElement.addEventListener('click', (evt) => deleteCard(evt.target, selectors.cardItemSelector));
+  if(card.owner._id === userId) {
+    const cardDeleteBtnElement = cardElement.querySelector(selectors.cardDeleteButtonSelector);
+    cardDeleteBtnElement.classList.add(cardDeleteButtonActiveClass);
+    cardDeleteBtnElement.addEventListener('click', (evt) => deleteCard(evt.target, selectors.cardItemSelector));
+  }
+
   // Открытие картинки
-  cardImageElement.addEventListener('click', (evt) => openPopupView({link: data.link, name: data.name}));
+  cardImageElement.addEventListener('click', (evt) => openPopupView({link: card.link, name: card.name}));
+
   return cardElement;
 }
 
@@ -40,16 +59,16 @@ function renderCard(cardElement) {
 }
 
 // Добавление карточки
-export const addCard = (name, link) => {
-  renderCard(createCardElement({name: name, link: link}));
+export const addCard = (card, userId) => {
+  renderCard(createCardElement(card, userId));
 }
 
 // Вывожу карточки при загрузке страницы
-function loadCards() {
-  cards.forEach(item => addCard(item.name, item.link));
+export function loadCards(cards, userId) {
+  cards.forEach(card => addCard(card, userId));
 }
 
 // Подключение карточек
-export const enableCard = () => {
-  loadCards();
-}
+// export const enableCard = () => {
+//   loadCards();
+// }

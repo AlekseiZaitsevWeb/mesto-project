@@ -11,6 +11,7 @@ const selectors = {
   popupSelector:                        '.popup',
   // profileEdit
   profileEditButtonSelector:            '.profile__edit-button',
+  profileAvatarSelector:                '.profile__avatar',
   profileNameTextSelector:              '.profile__name',
   profileJobTextSelector:               '.profile__description',
   // profilePopup
@@ -46,7 +47,10 @@ const classAction = {
   popupOpenedClass:                     'popup_opened',
   popupCloseButtonSelector:             'popup__button-close',
   // card
-  cardLikeButtonActiveClass:            'photo-grid__like-button_active'
+  cardLikeButtonActiveClass:            'photo-grid__like-button_active',
+  cardDeleteButtonActiveClass:          'photo-grid__delete-button_active',
+  // profile
+  profileAvatarCoverActive:             'profile__avatar-cover_active'
 }
 
 export {config, selectors, classAction}

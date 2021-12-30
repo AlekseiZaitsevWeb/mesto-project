@@ -1,4 +1,4 @@
-import {selectors, classAction} from './utils/constants';
+import {selectors, classAction} from './utils/constants.js';
 import {addCard} from './card.js';
 
 // popup

@@ -20,7 +20,10 @@
     <main class="content">
       <!-- profile -->
       <section class="profile content__profile">
-        <img src="<%=require('./images/profile-avatar.jpg')%>" alt="Жак-Ив Кусто" class="profile__avatar">
+        <div class="profile__avatar-wraper">
+          <img src="<%=require('./images/profile-avatar.jpg')%>" alt="Жак-Ив Кусто" class="profile__avatar">
+          <button class="profile__avatar-cover" type="button"></button>
+        </div>
         <div class="profile__text">
           <div class="profile__name-edit">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -65,6 +68,21 @@
     </div>
   </section>
   <!-- end popup profileEdit -->
+  <!-- popup avatarEdit -->
+  <section class="popup root__popup popup_type_profile-edit">
+    <div class="popup__container">
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form name="avatar-edit" action="#" class="popup__form popup__form_type_avatar-edit">
+        <section class="popup__form-section">
+          <input type="url" name="avatar" class="popup__input-text popup__input_avatar" placeholder="Ссылка на аватар" required>
+          <span class="popup__input-text-error"></span>
+        </section>
+        <button class="popup__button-submit" type="submit">Сохранить</button>
+      </form>
+      <button class="popup__button-close" type="button"></button>
+    </div>
+  </section>
+  <!-- end popup avatarEdit -->
   <!-- popup addPlace -->
   <section class="popup root__popup popup_type_add-place">
     <div class="popup__container">
@@ -95,6 +113,15 @@
     </div>
   </section>
   <!-- end popup img -->
+  <!-- popup confirm -->
+  <section class="popup root__popup popup_type_confirm">
+    <div class="popup__container">
+      <h2 class="popup__title">Вы уверены?</h2>
+      <button class="popup__button-submit popup__button-submit_type_confirm" type="button">Да</button>
+      <button class="popup__button-close" type="button"></button>
+    </div>
+  </section>
+  <!-- end popup confirm -->
   <!-- card__template -->
   <template  class="card__template">
     <li class="photo-grid__item">
@@ -102,7 +129,10 @@
       <button class="photo-grid__delete-button" type="button"></button>
       <div class="photo-grid__image-caption">
         <p class="photo-grid__image-title"></p>
-        <button class="photo-grid__like-button" type="button"></button>
+        <div class="photo-grid__like-wraper">
+          <button class="photo-grid__like-button" type="button"></button>
+          <p class="photo-grid__count-like">234</p>
+        </div>
       </div>
     </li>
   </template>
