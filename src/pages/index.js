@@ -1,9 +1,25 @@
 import './index.css';
-import {enableCard} from '../components/card';
+import {enableCard} from '../components/card.js';
 import {enableModal} from '../components/modal.js';
 import {enableValidation} from '../components/validate.js';
 
-enableCard();
+import {getInitial} from '../components/api.js';
+
+
+const profileAvatarWraperElement = document.querySelector('.profile__avatar-wraper');
+const profileAvatarCoverElement = document.querySelector('.profile__avatar-cover');
+
+
+profileAvatarWraperElement.addEventListener('mouseover', () => {
+  profileAvatarCoverElement.classList.add('profile__avatar-cover_active');
+});
+profileAvatarWraperElement.addEventListener('mouseout', () => {
+  profileAvatarCoverElement.classList.remove('profile__avatar-cover_active');
+});
+
+getInitial();
+
+// enableCard();
 
 enableModal();
 

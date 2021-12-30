@@ -1,8 +1,17 @@
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-5',
+  headers: {
+    authorization: 'c7ce723e-eaab-417b-b741-f3f9269dcb44',
+    'Content-Type': 'application/json'
+  }
+}
+
 const selectors = {
   // popup
   popupSelector:                        '.popup',
   // profileEdit
   profileEditButtonSelector:            '.profile__edit-button',
+  profileAvatarSelector:                '.profile__avatar',
   profileNameTextSelector:              '.profile__name',
   profileJobTextSelector:               '.profile__description',
   // profilePopup
@@ -38,7 +47,10 @@ const classAction = {
   popupOpenedClass:                     'popup_opened',
   popupCloseButtonSelector:             'popup__button-close',
   // card
-  cardLikeButtonActiveClass:            'photo-grid__like-button_active'
+  cardLikeButtonActiveClass:            'photo-grid__like-button_active',
+  cardDeleteButtonActiveClass:          'photo-grid__delete-button_active',
+  // profile
+  profileAvatarCoverActive:             'profile__avatar-cover_active'
 }
 
-export {selectors, classAction}
+export {config, selectors, classAction}
