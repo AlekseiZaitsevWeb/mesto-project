@@ -11,6 +11,8 @@ const selectors = {
   popupSelector:                        '.popup',
   // profileEdit
   profileEditButtonSelector:            '.profile__edit-button',
+  profileAvatarWraperSelector:          '.profile__avatar-wraper',
+  profileAvatarCoverSelector:            '.profile__avatar-cover',
   profileAvatarSelector:                '.profile__avatar',
   profileNameTextSelector:              '.profile__name',
   profileJobTextSelector:               '.profile__description',
@@ -30,6 +32,9 @@ const selectors = {
   viewPopupSelector:                    '.popup_type_view',
   viewPopupImageSelector:               '.popup__image',
   viewPopupCaptionSelector:             '.popup__caption',
+  // confirmPopup
+  confirmPopupSelector:                 '.popup_type_confirm',
+  confirmPopupButtonSelector:           '.popup__button-submit_type_confirm',
   // card
   cardTemplateSelector:                 '.card__template',
   cardWrapSelector:                     '.photo-grid__items',
@@ -37,6 +42,7 @@ const selectors = {
   cardImageSelector:                    '.photo-grid__image',
   cardImageCaptionSelector:             '.photo-grid__image-title',
   cardLikeButtonSelector:               '.photo-grid__like-button',
+  cardLineCountSelector:                '.photo-grid__count-like',
   cardDeleteButtonSelector:             '.photo-grid__delete-button',
   // form button
   submitButtonForm:                     '.popup__button-submit'
