@@ -1,26 +1,47 @@
 import {selectors, classAction} from './utils/constants.js';
 import {openPopupView} from './modal.js';
+import {userData, deleteCard, deleteLike, addLike} from '../components/api.js';
 
 const cardTemplateElement = document.querySelector(selectors.cardTemplateSelector).content;
 const wrapCardsElement =  document.querySelector(selectors.cardWrapSelector);
 
 // Активация кнопки Like карточки
-function activeCardLikeButton(element, likeButtonActiveClass){
-  element.classList.toggle(likeButtonActiveClass)
+function activeCardLikeButton(element, likeButton){
+  if(likeButton.classList.contains(classAction.cardLikeButtonActiveClass)) {
+    deleteLike(element, likeButton);
+  } else {
+    addLike(element, likeButton);
+  }
+}
+
+// Активация лайка
+export function activationLike(likeButton) {
+  likeButton.classList.add(classAction.cardLikeButtonActiveClass);
+}
+
+// Деактивация лайка
+export function deactivationLike(likeButton) {
+  likeButton.classList.remove(classAction.cardLikeButtonActiveClass);
+}
+
+// Вывод кол-ва лаков
+export function viewCountLike(cardElement, countLike) {
+  const cardLineCountElement = cardElement.querySelector(selectors.cardLineCountSelector);
+  cardLineCountElement.textContent = countLike;
 }
 
 // Удаление карточки
-function deleteCard(element, itemSelector){
-  element.closest(itemSelector).remove();
+export function removeCard(elementId){
+  document.getElementById(`${elementId}`).remove();
 }
 
 // Создание карточки
-function createCardElement(card, userId) {
-
-
+function createCardElement(card) {
 
   const cardElement = cardTemplateElement.querySelector(selectors.cardItemSelector).cloneNode(true);
   const cardImageElement = cardElement.querySelector(selectors.cardImageSelector);
+
+  cardElement.id = card._id;
 
   cardImageElement.src = card.link;
   cardImageElement.alt = `Изображение ${card.name}`;
@@ -28,23 +49,23 @@ function createCardElement(card, userId) {
   const cardTitleElement = cardElement.querySelector(selectors.cardImageCaptionSelector);
   cardTitleElement.textContent = card.name;
 
-  // Кнопка Like
-  // 1) загрузить состояние активности сердечка, если есть id то подсветить, если нет то нет
-  // 2) при нажатии отправлять на сервер данные о лайке и потом вызывать функцию запроса состояния лайка на сервер и по ответу отрисовывать
-
-  // нужны функции:
-  // 1) получения всех лайков, это будет количество и в нем буду искать ID для отрисовки активности лайка
-  // 2) При нажатии отправка данных о лайке и выполнение функции 1)
-
   const cardLikeBtnElement = cardElement.querySelector(selectors.cardLikeButtonSelector);
-  cardLikeBtnElement.addEventListener('click', () => activeCardLikeButton(cardLikeBtnElement, classAction.cardLikeButtonActiveClass));
+  // Активность лайка
+  card.likes.forEach(likeUserData => {
+    if(likeUserData._id === userData._id) {
+      activationLike(cardLikeBtnElement);
+    }
+  });
+  cardLikeBtnElement.addEventListener('click', () => activeCardLikeButton(cardElement, cardLikeBtnElement));
 
+  // Кол-во лайков
+  viewCountLike(cardElement, card.likes.length);
 
   // Удаление карты
-  if(card.owner._id === userId) {
+  if(card.owner._id === userData._id) {
     const cardDeleteBtnElement = cardElement.querySelector(selectors.cardDeleteButtonSelector);
-    cardDeleteBtnElement.classList.add(cardDeleteButtonActiveClass);
-    cardDeleteBtnElement.addEventListener('click', (evt) => deleteCard(evt.target, selectors.cardItemSelector));
+    cardDeleteBtnElement.classList.add(classAction.cardDeleteButtonActiveClass);
+    cardDeleteBtnElement.addEventListener('click', (evt) => deleteCard(card._id));
   }
 
   // Открытие картинки
@@ -59,16 +80,11 @@ function renderCard(cardElement) {
 }
 
 // Добавление карточки
-export const addCard = (card, userId) => {
-  renderCard(createCardElement(card, userId));
+export const addCard = (card) => {
+  renderCard(createCardElement(card));
 }
 
 // Вывожу карточки при загрузке страницы
-export function loadCards(cards, userId) {
-  cards.forEach(card => addCard(card, userId));
+export function loadCards(cards) {
+  cards.forEach(card => addCard(card));
 }
-
-// Подключение карточек
-// export const enableCard = () => {
-//   loadCards();
-// }
