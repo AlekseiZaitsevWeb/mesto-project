@@ -1,19 +1,12 @@
 import './index.css';
-
-// import {enableCard} from '../components/card.js';
-
 import {getInitial} from '../components/api.js';
 import {enableProfile} from '../components/profile.js';
 import {enableModal} from '../components/modal.js';
 import {enableValidation} from '../components/validate.js';
 
-
-
 getInitial();
 
 enableProfile();
-
-// enableCard();
 
 enableModal();
 

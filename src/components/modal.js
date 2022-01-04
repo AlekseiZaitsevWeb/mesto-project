@@ -5,6 +5,9 @@ import {userData, editProfile, addNewCard} from '../components/api.js';
 const popupList = document.querySelectorAll(selectors.popupSelector);
 // profileEdit
 const profileEditButtonElement = document.querySelector(selectors.profileEditButtonSelector);
+// avatarEdit
+const avatarEditButtonElement = document.querySelector(selectors.avatarEditButtonSelector);
+// const avatarPopupSubmitButtonElement = profilePopupElement.querySelector(selectors.submitButtonForm);
 // profilePopup
 const profilePopupElement = document.querySelector(selectors.profilePopupSelector);
 const profilePopupNameInputElement = profilePopupElement.querySelector(selectors.profilePopupNameInputSelector);
@@ -24,8 +27,8 @@ const viewPopupElement = document.querySelector(selectors.viewPopupSelector);
 const viewPopupImageElement = viewPopupElement.querySelector(selectors.viewPopupImageSelector);
 const viewPopupCaptionElement = viewPopupElement.querySelector(selectors.viewPopupCaptionSelector);
 // confirmPopup
-const confirmPopupElement = document.querySelector(selectors.confirmPopupSelector);
-const confirmPopupButtonElement = confirmPopupElement.querySelector(selectors.confirmPopupButtonSelector);
+// const confirmPopupElement = document.querySelector(selectors.confirmPopupSelector);
+// const confirmPopupButtonElement = confirmPopupElement.querySelector(selectors.confirmPopupButtonSelector);
 
 // Закрытие popup по кнопке Escape
 function closeByEscape(evt) {
@@ -76,6 +79,18 @@ const enableModalProfile = () => {
   profilePopupFormElement.addEventListener('submit', saveEditProfile);
 }
 
+// Подключение profilePopup
+const enableModalAvatar = () => {
+  avatarEditButtonElement.addEventListener('click', () => {
+    const user = userData;
+    profilePopupNameInputElement.value = user.name;
+    profilePopupJobInputElement.value = user.about;
+    profilePopupSubmitButtonElement.setAttribute('disabled', true);
+    openPopup(profilePopupElement);
+  });
+  profilePopupFormElement.addEventListener('submit', saveEditProfile);
+}
+
 // Добавление карточки
 function addPlace(event){
   event.preventDefault();
@@ -97,6 +112,7 @@ const enableModalAddPlace = () => {
 // Подключение всех popup
 export const enableModal = () => {
   enableModalProfile();
+  enableModalAvatar();
   enableModalAddPlace();
 
   popupList.forEach((popup) => {

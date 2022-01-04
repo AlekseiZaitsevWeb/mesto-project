@@ -1,23 +1,33 @@
 import {selectors, classAction} from './utils/constants.js';
 import {openPopupView} from './modal.js';
-import {userData, deleteCard, deleteLike} from '../components/api.js';
+import {userData, deleteCard, deleteLike, addLike} from '../components/api.js';
 
 const cardTemplateElement = document.querySelector(selectors.cardTemplateSelector).content;
 const wrapCardsElement =  document.querySelector(selectors.cardWrapSelector);
 
 // Активация кнопки Like карточки
-function activeCardLikeButton(element, likeButtonActiveClass){
-
-  // -проверка класса активности лайка
-  // -если активен отправляю запрос delete
-  // -если не активен то запрос на put
-  // - из ответа меняю кол-во лаков и класс активности лайка
-
-  if(element.classList.contains(likeButtonActiveClass)) {
-    deleteLike(element.id);
+function activeCardLikeButton(element, likeButton){
+  if(likeButton.classList.contains(classAction.cardLikeButtonActiveClass)) {
+    deleteLike(element, likeButton);
+  } else {
+    addLike(element, likeButton);
   }
+}
 
-  element.classList.toggle(likeButtonActiveClass)
+// Активация лайка
+export function activationLike(likeButton) {
+  likeButton.classList.add(classAction.cardLikeButtonActiveClass);
+}
+
+// Деактивация лайка
+export function deactivationLike(likeButton) {
+  likeButton.classList.remove(classAction.cardLikeButtonActiveClass);
+}
+
+// Вывод кол-ва лаков
+export function viewCountLike(cardElement, countLike) {
+  const cardLineCountElement = cardElement.querySelector(selectors.cardLineCountSelector);
+  cardLineCountElement.textContent = countLike;
 }
 
 // Удаление карточки
@@ -39,20 +49,17 @@ function createCardElement(card) {
   const cardTitleElement = cardElement.querySelector(selectors.cardImageCaptionSelector);
   cardTitleElement.textContent = card.name;
 
-  // Кнопка Like
-  // 1) загрузить состояние активности сердечка, если есть id то подсветить, если нет то нет
-  // 2) при нажатии отправлять на сервер данные о лайке и потом вызывать функцию запроса состояния лайка на сервер и по ответу отрисовывать
-
-  // нужны функции:
-  // 1) получения всех лайков, это будет количество и в нем буду искать ID для отрисовки активности лайка
-  // 2) При нажатии отправка данных о лайке и выполнение функции 1)
-
   const cardLikeBtnElement = cardElement.querySelector(selectors.cardLikeButtonSelector);
-  cardLikeBtnElement.addEventListener('click', () => activeCardLikeButton(cardLikeBtnElement, classAction.cardLikeButtonActiveClass));
+  // Активность лайка
+  card.likes.forEach(likeUserData => {
+    if(likeUserData._id === userData._id) {
+      activationLike(cardLikeBtnElement);
+    }
+  });
+  cardLikeBtnElement.addEventListener('click', () => activeCardLikeButton(cardElement, cardLikeBtnElement));
 
   // Кол-во лайков
-  const cardLineCountElement = cardElement.querySelector(selectors.cardLineCountSelector);
-  cardLineCountElement.textContent = card.likes.length;
+  viewCountLike(cardElement, card.likes.length);
 
   // Удаление карты
   if(card.owner._id === userData._id) {

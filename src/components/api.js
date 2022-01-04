@@ -1,6 +1,6 @@
 import {config} from './utils/constants.js';
 import {setProfile} from './profile.js';
-import {loadCards, addCard, removeCard} from './card.js';
+import {loadCards, addCard, removeCard, viewCountLike, activationLike, deactivationLike} from './card.js';
 
 export const userData = {};
 
@@ -24,7 +24,7 @@ export const getInitial = () => {
       // Установка информации о пользователе в профиль
       setProfile(user);
 
-      // Загрузка карточек с сервера с учетом возможного удаления каточек данным пользователем
+      // Загрузка карточек с сервера
       getCards();
 
     })
@@ -129,10 +129,33 @@ export function deleteCard(cardId) {
     });
 };
 
-// Удаление лайка
-export function deleteLike(cardId) {
+// Добавление лайка
+export function addLike(cardElement, cardLikeBtnElement) {
   const headers = config.headers;
-  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${cardElement.id}`, {
+    method: 'PUT',
+    headers
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((res) => {
+      viewCountLike(cardElement, res.likes.length);
+      activationLike(cardLikeBtnElement);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+// Удаление лайка
+export function deleteLike(cardElement, cardLikeBtnElement) {
+  const headers = config.headers;
+  return fetch(`${config.baseUrl}/cards/likes/${cardElement.id}`, {
     method: 'DELETE',
     headers
   })
@@ -144,7 +167,8 @@ export function deleteLike(cardId) {
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((res) => {
-      // removeCard(cardId);
+      viewCountLike(cardElement, res.likes.length);
+      deactivationLike(cardLikeBtnElement);
     })
     .catch((err) => {
       console.log(err);

@@ -9,10 +9,13 @@ const config = {
 const selectors = {
   // popup
   popupSelector:                        '.popup',
+  // avatarEdit
+  avatarEditButtonSelector:             '.profile__avatar-cover',
+  // '.popup_type_avatar-edit'
   // profileEdit
   profileEditButtonSelector:            '.profile__edit-button',
   profileAvatarWraperSelector:          '.profile__avatar-wraper',
-  profileAvatarCoverSelector:            '.profile__avatar-cover',
+  profileAvatarCoverSelector:           '.profile__avatar-cover',
   profileAvatarSelector:                '.profile__avatar',
   profileNameTextSelector:              '.profile__name',
   profileJobTextSelector:               '.profile__description',
