@@ -1,15 +1,18 @@
 import {selectors, classAction} from './utils/constants.js';
-import {userData, editProfile, addNewCard} from '../components/api.js';
+import {userData, editProfile, editAvatar, addNewCard} from '../components/api.js';
 
 // popup
 const popupList = document.querySelectorAll(selectors.popupSelector);
 // profileEdit
 const profileEditButtonElement = document.querySelector(selectors.profileEditButtonSelector);
-// avatarEdit
-const avatarEditButtonElement = document.querySelector(selectors.avatarEditButtonSelector);
-// const avatarPopupSubmitButtonElement = profilePopupElement.querySelector(selectors.submitButtonForm);
+// avatarPopup
+const avatarPopupElement = document.querySelector(selectors.avatarPopupSelector);
+const avatarPopupFormElement = avatarPopupElement.querySelector(selectors.avatarPopupFormSelector);
+const avatarPopupInputElement = avatarPopupFormElement.querySelector(selectors.avatarPopupInputSelector);
+const avatarPopupSubmitButtonElement = avatarPopupFormElement.querySelector(selectors.submitButtonForm);
 // profilePopup
 const profilePopupElement = document.querySelector(selectors.profilePopupSelector);
+const profileAvatarCoverElement = document.querySelector(selectors.profileAvatarCoverSelector);
 const profilePopupNameInputElement = profilePopupElement.querySelector(selectors.profilePopupNameInputSelector);
 const profilePopupJobInputElement  = profilePopupElement.querySelector(selectors.profilePopupJobInputSelector);
 const profilePopupFormElement = profilePopupElement.querySelector(selectors.profilePopupFormSelector);
@@ -63,8 +66,17 @@ export function openPopupView(data){
 // Сохранение введенных данные в профиль
 function saveEditProfile(event){
   event.preventDefault();
+  profilePopupSubmitButtonElement.textContent  = 'Сохранение...';
   editProfile(profilePopupNameInputElement.value, profilePopupJobInputElement.value);
   closePopup(profilePopupElement);
+}
+
+// Сохранение аватара
+function saveAvatar(event){
+  event.preventDefault();
+  avatarPopupSubmitButtonElement.textContent  = 'Сохранение...';
+  editAvatar(avatarPopupInputElement.value);
+  closePopup(avatarPopupElement);
 }
 
 // Подключение profilePopup
@@ -74,21 +86,22 @@ const enableModalProfile = () => {
     profilePopupNameInputElement.value = user.name;
     profilePopupJobInputElement.value = user.about;
     profilePopupSubmitButtonElement.setAttribute('disabled', true);
+    profilePopupSubmitButtonElement.textContent  = 'Сохранить';
     openPopup(profilePopupElement);
   });
   profilePopupFormElement.addEventListener('submit', saveEditProfile);
 }
 
-// Подключение profilePopup
+// Подключение avatarPopup
 const enableModalAvatar = () => {
-  avatarEditButtonElement.addEventListener('click', () => {
+  profileAvatarCoverElement.addEventListener('click', () => {
     const user = userData;
-    profilePopupNameInputElement.value = user.name;
-    profilePopupJobInputElement.value = user.about;
-    profilePopupSubmitButtonElement.setAttribute('disabled', true);
-    openPopup(profilePopupElement);
+    avatarPopupInputElement.value = user.avatar;
+    avatarPopupSubmitButtonElement.setAttribute('disabled', true);
+    avatarPopupSubmitButtonElement.textContent  = 'Сохранить';
+    openPopup(avatarPopupElement);
   });
-  profilePopupFormElement.addEventListener('submit', saveEditProfile);
+  avatarPopupFormElement.addEventListener('submit', saveAvatar);
 }
 
 // Добавление карточки
@@ -96,11 +109,13 @@ function addPlace(event){
   event.preventDefault();
   const name = addPlacePopupNameInputElement.value;
   const link = addPlacePopupLinkInputElement.value
+  addPlacePopupSubmitButtonElement.textContent  = 'Создание...';
   addNewCard({name, link});
   closePopup(addPlacePopupElement);
   addPlacePopupNameInputElement.value = '';
   addPlacePopupLinkInputElement.value = '';
   addPlacePopupSubmitButtonElement.setAttribute('disabled', true);
+  addPlacePopupSubmitButtonElement.textContent  = 'Создать';
 }
 
 // Подключение addPlacePopup
