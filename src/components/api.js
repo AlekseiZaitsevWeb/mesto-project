@@ -175,6 +175,32 @@ export function deleteLike(cardElement, cardLikeBtnElement) {
     });
 };
 
+// Редактирование профиля
+export const editAvatar = (avatar) => {
+  const headers = config.headers;
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers,
+    body: JSON.stringify({
+      avatar: avatar
+    })
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then(user => {
+      saveUserData(user);
+      setProfile(user);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 const saveUserData = (user) => {
   for (let key in user) {
     userData[key] = user[key];
