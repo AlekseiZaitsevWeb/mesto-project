@@ -24,7 +24,7 @@
 
 **Сайт на GH Pages**
 
-* [сайт](https://alekseizaitsevweb.github.io/mesto-project/)
+* [сайт](https://alekseizaitsevweb.github.io/mesto-project/index.html)
 
 **Figma**
 
