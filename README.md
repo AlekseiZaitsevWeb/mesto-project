@@ -22,6 +22,8 @@
 
 :white_check_mark: API
 
+**Сайт на GH Pages**
+
 * [GH Pages](https://alekseizaitsevweb.github.io/mesto-project/)
 
 **Figma**
