@@ -24,7 +24,7 @@
 
 **Сайт на GH Pages**
 
-* [GH Pages](https://alekseizaitsevweb.github.io/mesto-project/)
+* [сайт](https://alekseizaitsevweb.github.io/mesto-project/)
 
 **Figma**
 
@@ -33,3 +33,5 @@
 * [Макет в Figma](https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?node-id=0%3A1)
 
 * [Макет в Figma](https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript-9-sprint?node-id=0%3A1)
+
+![Проект Место](https://github.com/AlekseiZaitsevWeb/mesto-project/blob/main/readme.png "Проект Место")
