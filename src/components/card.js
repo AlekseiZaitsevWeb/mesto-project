@@ -1,17 +1,14 @@
 import {selectors, classAction} from './utils/constants.js';
 import {openPopupView} from './modal.js';
-import {userData, deleteCard, deleteLike, addLike} from '../components/api.js';
+import {userData, deleteCardApi, deleteLikeApi, addLikeApi} from '../components/api.js';
 
 const cardTemplateElement = document.querySelector(selectors.cardTemplateSelector).content;
 const wrapCardsElement =  document.querySelector(selectors.cardWrapSelector);
 
-// Активация кнопки Like карточки
-function activeCardLikeButton(element, likeButton){
-  if(likeButton.classList.contains(classAction.cardLikeButtonActiveClass)) {
-    deleteLike(element, likeButton);
-  } else {
-    addLike(element, likeButton);
-  }
+// Вывод кол-ва лаков
+export function viewCountLike(cardElement, countLike) {
+  const cardLineCountElement = cardElement.querySelector(selectors.cardLineCountSelector);
+  cardLineCountElement.textContent = countLike;
 }
 
 // Активация лайка
@@ -24,15 +21,53 @@ export function deactivationLike(likeButton) {
   likeButton.classList.remove(classAction.cardLikeButtonActiveClass);
 }
 
-// Вывод кол-ва лаков
-export function viewCountLike(cardElement, countLike) {
-  const cardLineCountElement = cardElement.querySelector(selectors.cardLineCountSelector);
-  cardLineCountElement.textContent = countLike;
+// Добавление лайка
+function addLike(element, likeButton) {
+  addLikeApi(element, likeButton)
+    .then((res) => {
+      viewCountLike(element, res.likes.length);
+      activationLike(likeButton);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+// Удаление лайка
+function deleteLike(element, likeButton) {
+  deleteLikeApi(element, likeButton)
+    .then((res) => {
+      viewCountLike(element, res.likes.length);
+      deactivationLike(likeButton);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+// Активация кнопки Like карточки
+function activeCardLikeButton(element, likeButton){
+  if(likeButton.classList.contains(classAction.cardLikeButtonActiveClass)) {
+    deleteLike(element, likeButton);
+  } else {
+    addLike(element, likeButton);
+  }
+}
+
+// Удаление карточки из разметки
+export function removeCard(elementId){
+  document.getElementById(`${elementId}`).remove();
 }
 
 // Удаление карточки
-export function removeCard(elementId){
-  document.getElementById(`${elementId}`).remove();
+function deleteCard(cardId) {
+  deleteCardApi(cardId)
+  .then((res) => {
+    removeCard(cardId);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 }
 
 // Создание карточки

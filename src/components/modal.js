@@ -1,5 +1,7 @@
 import {selectors, classAction} from './utils/constants.js';
-import {userData, editProfile, editAvatar, addNewCard} from '../components/api.js';
+import {userData, saveUserData, editProfile, editAvatar, addNewCard} from './api.js';
+import {setProfile} from './profile.js';
+import {addCard} from './card.js';
 
 // popup
 const popupList = document.querySelectorAll(selectors.popupSelector);
@@ -67,16 +69,30 @@ export function openPopupView(data){
 function saveEditProfile(event){
   event.preventDefault();
   profilePopupSubmitButtonElement.textContent  = 'Сохранение...';
-  editProfile(profilePopupNameInputElement.value, profilePopupJobInputElement.value);
-  closePopup(profilePopupElement);
+  editProfile(profilePopupNameInputElement.value, profilePopupJobInputElement.value)
+    .then(user => {
+      saveUserData(user);
+      setProfile(user);
+      closePopup(profilePopupElement);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 // Сохранение аватара
 function saveAvatar(event){
   event.preventDefault();
   avatarPopupSubmitButtonElement.textContent  = 'Сохранение...';
-  editAvatar(avatarPopupInputElement.value);
-  closePopup(avatarPopupElement);
+  editAvatar(avatarPopupInputElement.value)
+    .then(user => {
+      saveUserData(user);
+      setProfile(user);
+      closePopup(avatarPopupElement);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 // Подключение profilePopup
@@ -110,12 +126,17 @@ function addPlace(event){
   const name = addPlacePopupNameInputElement.value;
   const link = addPlacePopupLinkInputElement.value
   addPlacePopupSubmitButtonElement.textContent  = 'Создание...';
-  addNewCard({name, link});
-  closePopup(addPlacePopupElement);
-  addPlacePopupNameInputElement.value = '';
-  addPlacePopupLinkInputElement.value = '';
-  addPlacePopupSubmitButtonElement.setAttribute('disabled', true);
-  addPlacePopupSubmitButtonElement.textContent  = 'Создать';
+  addNewCard({name, link})
+    .then(card => {
+      addCard(card);
+      closePopup(addPlacePopupElement);
+      addPlacePopupFormElement.reset();
+      addPlacePopupSubmitButtonElement.setAttribute('disabled', true);
+      addPlacePopupSubmitButtonElement.textContent  = 'Создать';
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 // Подключение addPlacePopup

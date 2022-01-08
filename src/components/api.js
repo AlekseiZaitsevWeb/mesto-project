@@ -1,36 +1,20 @@
 import {config} from './utils/constants.js';
-import {setProfile} from './profile.js';
-import {loadCards, addCard, removeCard, viewCountLike, activationLike, deactivationLike} from './card.js';
 
 export const userData = {};
+
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
 
 export const getInitial = () => {
   const headers = config.headers;
   return fetch(`${config.baseUrl}/users/me`, {
     headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then(user => {
-
-      // Сохраняю данные пользователя
-      saveUserData(user);
-
-      // Установка информации о пользователе в профиль
-      setProfile(user);
-
-      // Загрузка карточек с сервера
-      getCards();
-
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 }
 
 // Загрузка карточек
@@ -39,19 +23,7 @@ export const getCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then(cards => {
-      loadCards(cards);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 };
 
 // Редактирование профиля
@@ -65,20 +37,7 @@ export const editProfile = (name, about) => {
       about: about
     })
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then(user => {
-      saveUserData(user);
-      setProfile(user);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 };
 
 // Добавление новой карточки
@@ -92,87 +51,37 @@ export const addNewCard = (card) => {
       link: card.link
     })
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then(card => {
-      addCard(card);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 };
 
 // Удаление карточки
-export function deleteCard(cardId) {
+export function deleteCardApi(cardId) {
   const headers = config.headers;
   return fetch(`${config.baseUrl}/cards/${cardId}`, {
     method: 'DELETE',
     headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((res) => {
-      removeCard(cardId);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 };
 
 // Добавление лайка
-export function addLike(cardElement, cardLikeBtnElement) {
+export function addLikeApi(cardElement) {
   const headers = config.headers;
   return fetch(`${config.baseUrl}/cards/likes/${cardElement.id}`, {
     method: 'PUT',
     headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((res) => {
-      viewCountLike(cardElement, res.likes.length);
-      activationLike(cardLikeBtnElement);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 };
 
 // Удаление лайка
-export function deleteLike(cardElement, cardLikeBtnElement) {
+export function deleteLikeApi(cardElement) {
   const headers = config.headers;
   return fetch(`${config.baseUrl}/cards/likes/${cardElement.id}`, {
     method: 'DELETE',
     headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((res) => {
-      viewCountLike(cardElement, res.likes.length);
-      deactivationLike(cardLikeBtnElement);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 };
 
 // Редактирование профиля
@@ -185,23 +94,10 @@ export const editAvatar = (avatar) => {
       avatar: avatar
     })
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then(user => {
-      saveUserData(user);
-      setProfile(user);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 };
 
-const saveUserData = (user) => {
+export const saveUserData = (user) => {
   for (let key in user) {
     userData[key] = user[key];
   }
