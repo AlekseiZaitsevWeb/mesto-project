@@ -1,7 +1,7 @@
 import {selectors, classAction} from './utils/constants.js';
-import {userData, saveUserData, editProfile, editAvatar, addNewCard} from './api.js';
-import {setProfile} from './profile.js';
-import {addCard} from './card.js';
+import {userData, saveUserData, editProfile, editAvatar, addNewCard} from './_api.js';
+import {setProfile} from './_profile.js';
+import {addCard} from './_card.js';
 
 // popup
 const popupList = document.querySelectorAll(selectors.popupSelector);

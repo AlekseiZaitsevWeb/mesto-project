@@ -1,6 +1,6 @@
 import {selectors, classAction} from './utils/constants.js';
-import {openPopupView} from './modal.js';
-import {userData, deleteCardApi, deleteLikeApi, addLikeApi} from '../components/api.js';
+import {openPopupView} from './_modal.js';
+import {userData, deleteCardApi, deleteLikeApi, addLikeApi} from '../components/_api.js';
 
 const cardTemplateElement = document.querySelector(selectors.cardTemplateSelector).content;
 const wrapCardsElement =  document.querySelector(selectors.cardWrapSelector);

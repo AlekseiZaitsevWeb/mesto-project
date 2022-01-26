@@ -1,10 +1,10 @@
 import './index.css';
-import {getInitial, saveUserData, getCards} from '../components/api.js';
-import {enableProfile, setProfile} from '../components/profile.js';
-import {enableModal} from '../components/modal.js';
-import {enableValidation} from '../components/validate.js';
-import {loadCards} from '../components/card.js';
-
+import {getInitial, saveUserData, getCards} from '../components/_api.js';
+import {enableProfile, setProfile} from '../components/_profile.js';
+import {enableModal} from '../components/_modal.js';
+import {enableValidation} from '../components/_validate.js';
+import {loadCards} from '../components/_card.js';
+import {config} from '../components/utils/constants.js';
 
 getInitial()
   .then(user => {
@@ -36,3 +36,7 @@ enableValidation({
   inputErrorClass:            'popup__input-text_color_error',
   errorClass:                 'popup__input-text-error_active'
 });
+
+import Api from "../components/Api.js";
+
+const api = new Api(config);

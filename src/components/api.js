@@ -1,104 +1,91 @@
-import {config} from './utils/constants.js';
+export default class Api {
+    constructor({ options }) {
+        this._options = options;
+    }
 
-export const userData = {};
+    _checkResponse = (response) => {
+        if (response.ok) {
+            return response.json()
+        }
+        return Promise.reject(`Ошибка: ${response.status}`)
+    }
 
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
+    getCards() {
+        return fetch(`${this._options.baseUrl}/cards`, {
+            headers: this._options.headers
+        })
+            .then(this._checkResponse)
+    }
+
+    getUser() {
+        return fetch(`${this._options.baseUrl}/users/me`, {
+            headers: this._options.headers
+        })
+            .then(this._checkResponse)
+    }
+
+    addServerCard(nameCard, linkCard) {
+        return fetch(`${this._options.baseUrl}/cards`, {
+            method: 'POST',
+            headers: this._options.headers,
+            body: JSON.stringify({
+                name: nameCard,
+                link: linkCard,
+            })
+        })
+            .then(this._checkResponse)
+    }
+
+    delServerCard(cardId) {
+        return fetch(`${this._options.baseUrl}/cards/${cardId}`, {
+            method: 'DELETE',
+            headers: this._options.headers
+        })
+    }
+
+    getLikes(cardId) {
+        return fetch(`${this._options.baseUrl}/cards/likes/${cardId}`, {
+            headers: this._options.headers
+        })
+            .then(this._checkResponse)
+    }
+
+    addLike(cardId) {
+        return fetch(`${this._options.baseUrl}/cards/likes/${cardId}`, {
+            method: 'PUT',
+            headers: this._options.headers,
+        })
+            .then(this._checkResponse)
+    }
+    
+    delLike(cardId) {
+        return fetch(`${this._options.baseUrl}/cards/likes/${cardId}`, {
+            method: 'DELETE',
+            headers: this._options.headers,
+        })
+            .then(this._checkResponse)
+    }
+
+    addServerUserData(userName, userAbout) {
+        return fetch(`${this._options.baseUrl}/users/me`, {
+            method: 'PATCH',
+            headers: this._options.headers,
+            body: JSON.stringify({
+                name: userName,
+                about: userAbout
+            })
+        })
+            .then(this._checkResponse)
+    }
+
+    addServerUserImage(userImage) {
+        return fetch(`${this._options.baseUrl}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: this._options.headers,
+            body: JSON.stringify({
+                avatar: userImage
+            })
+        })
+            .then(this._checkResponse)
+    }
 }
-
-export const getInitial = () => {
-  const headers = config.headers;
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers
-  })
-    .then(checkResponse)
-}
-
-// Загрузка карточек
-export const getCards = () => {
-  const headers = config.headers;
-  return fetch(`${config.baseUrl}/cards`, {
-    headers
-  })
-    .then(checkResponse)
-};
-
-// Редактирование профиля
-export const editProfile = (name, about) => {
-  const headers = config.headers;
-  return fetch(`${config.baseUrl}/users/me`, {
-    method: 'PATCH',
-    headers,
-    body: JSON.stringify({
-      name: name,
-      about: about
-    })
-  })
-    .then(checkResponse)
-};
-
-// Добавление новой карточки
-export const addNewCard = (card) => {
-  const headers = config.headers;
-  return fetch(`${config.baseUrl}/cards`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      name: card.name,
-      link: card.link
-    })
-  })
-    .then(checkResponse)
-};
-
-// Удаление карточки
-export function deleteCardApi(cardId) {
-  const headers = config.headers;
-  return fetch(`${config.baseUrl}/cards/${cardId}`, {
-    method: 'DELETE',
-    headers
-  })
-    .then(checkResponse)
-};
-
-// Добавление лайка
-export function addLikeApi(cardElement) {
-  const headers = config.headers;
-  return fetch(`${config.baseUrl}/cards/likes/${cardElement.id}`, {
-    method: 'PUT',
-    headers
-  })
-    .then(checkResponse)
-};
-
-// Удаление лайка
-export function deleteLikeApi(cardElement) {
-  const headers = config.headers;
-  return fetch(`${config.baseUrl}/cards/likes/${cardElement.id}`, {
-    method: 'DELETE',
-    headers
-  })
-    .then(checkResponse)
-};
-
-// Редактирование профиля
-export const editAvatar = (avatar) => {
-  const headers = config.headers;
-  return fetch(`${config.baseUrl}/users/me/avatar`, {
-    method: 'PATCH',
-    headers,
-    body: JSON.stringify({
-      avatar: avatar
-    })
-  })
-    .then(checkResponse)
-};
-
-export const saveUserData = (user) => {
-  for (let key in user) {
-    userData[key] = user[key];
-  }
-};
