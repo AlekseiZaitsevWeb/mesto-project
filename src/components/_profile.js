@@ -5,7 +5,7 @@ const profileAvatarWraperElement = document.querySelector(selectors.profileAvata
 const profileAvatarCoverElement = profileAvatarWraperElement.querySelector(selectors.profileAvatarCoverSelector);
 const profileAvatarElement = profileAvatarWraperElement.querySelector(selectors.profileAvatarSelector);
 const profileNameTextElement = document.querySelector(selectors.profileNameTextSelector);
-const profileJobTextElement  = document.querySelector(selectors.profileJobTextSelector);
+const profileJobTextElement  = document.querySelector(selectors.profileAboutTextSelector);
 
 export const enableProfile = () => {
   profileAvatarWraperElement.addEventListener('mouseover', () => {

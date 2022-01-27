@@ -18,8 +18,7 @@ const selectors = {
   profileAvatarWraperSelector:          '.profile__avatar-wraper',
   profileAvatarCoverSelector:           '.profile__avatar-cover',
   profileAvatarSelector:                '.profile__avatar',
-  profileNameTextSelector:              '.profile__name',
-  profileJobTextSelector:               '.profile__description',
+
   // profilePopup
   profilePopupSelector:                 '.popup_type_profile-edit',
   profilePopupNameInputSelector:        '.popup__input_profile_name',
@@ -62,5 +61,9 @@ const classAction = {
   // profile
   profileAvatarCoverActive:             'profile__avatar-cover_active'
 }
+
+
+export const profileNameTextSelector = '.profile__name';
+export const profileAboutTextSelector = '.profile__description';
 
 export {config, selectors, classAction}

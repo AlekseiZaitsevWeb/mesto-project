@@ -1,6 +1,6 @@
 export default class Api {
     constructor({ options }) {
-        this._options = options;
+        this._options = options.name;
     }
 
     _checkResponse = (response) => {
@@ -57,7 +57,7 @@ export default class Api {
         })
             .then(this._checkResponse)
     }
-    
+
     delLike(cardId) {
         return fetch(`${this._options.baseUrl}/cards/likes/${cardId}`, {
             method: 'DELETE',

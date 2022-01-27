@@ -4,7 +4,12 @@ import {enableProfile, setProfile} from '../components/_profile.js';
 import {enableModal} from '../components/_modal.js';
 import {enableValidation} from '../components/_validate.js';
 import {loadCards} from '../components/_card.js';
-import {config} from '../components/utils/constants.js';
+import {config, selectors} from '../components/utils/constants.js';
+
+import Api from "../components/Api.js";
+import UserInfo from "../components/UserInfo";
+
+const api = new Api(config);
 
 getInitial()
   .then(user => {
@@ -37,6 +42,8 @@ enableValidation({
   errorClass:                 'popup__input-text-error_active'
 });
 
-import Api from "../components/Api.js";
 
-const api = new Api(config);
+
+
+
+
