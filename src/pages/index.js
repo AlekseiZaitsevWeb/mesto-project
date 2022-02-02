@@ -8,6 +8,16 @@ import {config, selectors} from '../components/utils/constants.js';
 
 import Api from "../components/Api.js";
 import UserInfo from "../components/UserInfo";
+import FormValidator from "../components/validate.js";
+
+const profileFormValidator = new FormValidator(constant.settings, constant.formProfile);
+const CardFormValidator = new FormValidator(constant.settings, constant.formPosts);
+const avatarFormValidator = new FormValidator(constant.settings, constant.formAvatar);
+profileFormValidator.enableValidation();
+CardFormValidator.enableValidation();
+avatarFormValidator.enableValidation();
+
+
 
 const api = new Api(config);
 
