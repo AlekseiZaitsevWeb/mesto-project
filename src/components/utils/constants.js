@@ -7,28 +7,6 @@ const config = {
 }
 
 const selectors = {
-  profilePopup:                 '.popup_type_profile-edit',
-  profileName:                  '.profile__name',
-  profileAbout:                 '.profile__description',
-  profileAvatar:                '.profile__avatar',
-  avatarPopup:                  '.popup_type_avatar-edit',
-  viewPopup:                    '.popup_type_view',
-}
-
-const elements = {
-  openPopupAvatarButton = document.querySelector('.profile__avatar-cover'),
-  openPopupProfileButton = document.querySelector('.profile__edit-button'),
-  openPopupAddPlaceButton = document.querySelector('.profile__add-button'),
-  profileNameInput = document.querySelector('.popup__input_profile_name'),
-  profileAboutInput = document.querySelector('.popup__input_profile_description'),
-}
-
-export {config, selectors, elements};
-
-
-/*
-
-const selectors = {
   // popup
   popupSelector:                        '.popup',
   // avatarPopup
@@ -88,17 +66,4 @@ const classAction = {
 export const profileNameTextSelector = '.profile__name';
 export const profileAboutTextSelector = '.profile__description';
 
-
-
-
-// используемые в текущем месяце ООП
-
-
-
-const openPopupAvatarButton = '.profile__avatar-cover';
-const openPopupProfileButton = '.profile__edit-button';
-const openPopupAddPlaceButton = '.profile__add-button';
-
-
-export {config, selectors, classAction, openPopupAvatarButton, openPopupProfileButton, openPopupAddPlaceButton};
-*/
+export {config, selectors, classAction}
