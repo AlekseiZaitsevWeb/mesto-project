@@ -7,98 +7,35 @@ const config = {
 }
 
 const selectors = {
-  profilePopup:                 '.popup_type_profile-edit',
+  profileAvatar:                '.profile__avatar',
   profileName:                  '.profile__name',
   profileAbout:                 '.profile__description',
-  profileAvatar:                '.profile__avatar',
+  popup:                        '.popup',
+  profilePopupForm:             '.popup__form_type_profile-edit',
+  addPlacePopupForm:            '.popup__form_type_add-place',
+  avatarPopupForm:              '.popup__form_type_avatar-edit',
+  cardTemplate:                 '.card__template',
+  cardWrap:                     '.photo-grid__items',
+  addPlacePopup:                '.popup_type_add-place',
+  profilePopup:                 '.popup_type_profile-edit',
   avatarPopup:                  '.popup_type_avatar-edit',
-  viewPopup:                    '.popup_type_view',
 }
 
 const elements = {
-  openPopupAvatarButton = document.querySelector('.profile__avatar-cover'),
-  openPopupProfileButton = document.querySelector('.profile__edit-button'),
-  openPopupAddPlaceButton = document.querySelector('.profile__add-button'),
-  profileNameInput = document.querySelector('.popup__input_profile_name'),
-  profileAboutInput = document.querySelector('.popup__input_profile_description'),
+  profileEditButton:            document.querySelector('.profile__edit-button'),
+  changeAvatarButton:           document.querySelector('.profile__avatar-cover'),
+  addPlaceButton:               document.querySelector('.profile__add-button'),
+  profileNameInput:             document.querySelector('.popup__input_profile_name'),
+  profileAboutInput:            document.querySelector('.popup__input_profile_description'),
 }
 
-export {config, selectors, elements};
-
-
-/*
-
-const selectors = {
-  // popup
-  popupSelector:                        '.popup',
-  // avatarPopup
-  avatarPopupSelector:                  '.popup_type_avatar-edit',
-  avatarPopupInputSelector:             '.popup__input_avatar',
-  avatarPopupFormSelector:              '.popup__form_type_avatar-edit',
-  // profileEdit
-  profileEditButtonSelector:            '.profile__edit-button',
-  profileAvatarWraperSelector:          '.profile__avatar-wraper',
-  profileAvatarCoverSelector:           '.profile__avatar-cover',
-  profileAvatarSelector:                '.profile__avatar',
-
-  // profilePopup
-  profilePopupSelector:                 '.popup_type_profile-edit',
-  profilePopupNameInputSelector:        '.popup__input_profile_name',
-  profilePopupJobInputSelector:         '.popup__input_profile_description',
-  profilePopupFormSelector:             '.popup__form_type_profile-edit',
-  // placeAddButton
-  addPlaceButtonSelector:               '.profile__add-button',
-  // addPlacePopup
-  addPlacePopupSelector:                '.popup_type_add-place',
-  addPlacePopupFormSelector:            '.popup__form_type_add-place',
-  addPlacePopupNameInputSelector:       '.popup__input_place_name',
-  addPlacePopupLinkInputSelector:       '.popup__input_place_link',
-  // viewPopup
-  viewPopupSelector:                    '.popup_type_view',
-  viewPopupImageSelector:               '.popup__image',
-  viewPopupCaptionSelector:             '.popup__caption',
-  // confirmPopup
-  confirmPopupSelector:                 '.popup_type_confirm',
-  confirmPopupButtonSelector:           '.popup__button-submit_type_confirm',
-  // card
-  cardTemplateSelector:                 '.card__template',
-  cardWrapSelector:                     '.photo-grid__items',
-  cardItemSelector:                     '.photo-grid__item',
-  cardImageSelector:                    '.photo-grid__image',
-  cardImageCaptionSelector:             '.photo-grid__image-title',
-  cardLikeButtonSelector:               '.photo-grid__like-button',
-  cardLineCountSelector:                '.photo-grid__count-like',
-  cardDeleteButtonSelector:             '.photo-grid__delete-button',
-  // form button
-  submitButtonForm:                     '.popup__button-submit'
+const formSelectors ={
+  formSectionSelector:          '.popup__form-section',
+  inputSelector:                '.popup__input-text',
+  inputTextError:               '.popup__input-text-error',
+  submitButtonSelector:         '.popup__button-submit',
+  inputErrorClass:              'popup__input-text_color_error',
+  errorClass:                   'popup__input-text-error_active'
 }
 
-const classAction = {
-  // popup
-  popupOpenedClass:                     'popup_opened',
-  popupCloseButtonSelector:             'popup__button-close',
-  // card
-  cardLikeButtonActiveClass:            'photo-grid__like-button_active',
-  cardDeleteButtonActiveClass:          'photo-grid__delete-button_active',
-  // profile
-  profileAvatarCoverActive:             'profile__avatar-cover_active'
-}
-
-
-export const profileNameTextSelector = '.profile__name';
-export const profileAboutTextSelector = '.profile__description';
-
-
-
-
-// используемые в текущем месяце ООП
-
-
-
-const openPopupAvatarButton = '.profile__avatar-cover';
-const openPopupProfileButton = '.profile__edit-button';
-const openPopupAddPlaceButton = '.profile__add-button';
-
-
-export {config, selectors, classAction, openPopupAvatarButton, openPopupProfileButton, openPopupAddPlaceButton};
-*/
+export {config, selectors, elements, formSelectors}

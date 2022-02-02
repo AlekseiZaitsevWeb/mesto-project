@@ -50,7 +50,11 @@ export default class Api {
             .then(this._checkResponse)
     }
 
-    addLike(cardId) {
+    toogleLike(isLike, cardId) {
+      isLike ? this._addLike(cardId) : this._delLike(cardId);
+    }
+
+    _addLike(cardId) {
         return fetch(`${this._options.baseUrl}/cards/likes/${cardId}`, {
             method: 'PUT',
             headers: this._options.headers,
@@ -58,7 +62,7 @@ export default class Api {
             .then(this._checkResponse)
     }
 
-    delLike(cardId) {
+    _delLike(cardId) {
         return fetch(`${this._options.baseUrl}/cards/likes/${cardId}`, {
             method: 'DELETE',
             headers: this._options.headers,
