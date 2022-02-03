@@ -1,10 +1,9 @@
 export default class UserInfo {
-  constructor({ nameSelector, aboutSelector, avatarSelector}) {
-    this._nameElement = documnet.querySelector(`.${nameSelector}`);
-    this._aboutElement = documnet.querySelector(`.${aboutSelector}`);
-    this._avatarElement = documnet.querySelector(`.${avatarSelector}`);
+  constructor(nameSelector, aboutSelector, avatarSelector) {
+    this._nameElement = document.querySelector(nameSelector);
+    this._aboutElement = document.querySelector(aboutSelector);
+    this._avatarElement = document.querySelector(avatarSelector);
   }
-
   getUserInfo() {
     return {
       name: this._nameElement.textContent,
@@ -12,7 +11,6 @@ export default class UserInfo {
       avatar: this._avatarElement.src
     };
   }
-
   setUserInfo({name, about, avatar}) {
     if(name) this._nameElement.textContent = name;
     if(about) this._aboutElement.textContent = about;
