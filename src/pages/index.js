@@ -6,7 +6,7 @@ import Card from "../components/Card.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
-import { config, selectors, elements, formSelectors, classAction } from '../components/utils/constants.js';
+import { config, selectors, elements, formSelectors, classAction } from '../utils/constants.js';
 
 const api = new Api(config);
 
@@ -81,7 +81,7 @@ const addCardPopup = new PopupWithForm({
         addCardPopup.close();
       })
       .catch(err => console.log(`Ошибка при добавлении новой карточки: ${err}`))
-      .finally(addCardPopup.renderLoading())
+      .finally(() => addCardPopup.renderLoading())
   }
 })
 addCardPopup.setEventListeners();
@@ -119,7 +119,9 @@ const editAvatarPopup = new PopupWithForm({
         editAvatarPopup.close();
       })
       .catch(err => console.log(`Ошибка при смене аватара: ${err}`))
-      .finally(editAvatarPopup.renderLoading())
+      .finally(() => {
+        editAvatarPopup.renderLoading();
+      })
   }
 })
 editAvatarPopup.setEventListeners();
@@ -128,12 +130,14 @@ elements.profileEditButton.addEventListener('click', () => {
   const currentUser = userInfo.getUserInfo();
   elements.profileNameInput.value = currentUser.name;
   elements.profileAboutInput.value = currentUser.about;
+  profileFormValidator.resetButton();
   editUserPopup.open();
 })
 
 
 
 elements.addPlaceButton.addEventListener('click', () => {
+  cardFormValidator.resetButton();
   addCardPopup.open();
 })
 
@@ -146,6 +150,7 @@ elements.profileAvatarWraper.addEventListener('mouseover', () => {
 });
 
 elements.profileAvatarWraper.addEventListener('mouseout', () => {
+  avatarFormValidator.resetButton();
   elements.changeAvatarButton.classList.remove(classAction.profileAvatarCoverActive);
 });
 

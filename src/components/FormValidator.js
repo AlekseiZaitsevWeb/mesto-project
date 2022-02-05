@@ -28,7 +28,6 @@ export default class FormValidator {
   // Скрываем текст и стили ошибки ввода
   _hideInputError = (inputElement) => {
     const errorMessageElement = inputElement.closest(this._formSectionSelector).querySelector(this._inputTextError);
-
     inputElement.classList.remove(this._inputErrorClass);
     errorMessageElement.classList.remove(this._errorClass);
     errorMessageElement.textContent = '';
@@ -44,39 +43,49 @@ export default class FormValidator {
   }
 
   // Проверка полей формы на валидность
-  _hasInvalidInput(inputListArray) {
-    return inputListArray.some((inputElement) => {
+  _hasInvalidInput() {
+    return this._inputListArray.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
 
   // Делаем кнопку submit неактивной если хотя бы одно поле не валидно
-  _toggleButtonState(inputListArray, submitButtonElement) {
-    if (this._hasInvalidInput(inputListArray)) {
-      submitButtonElement.setAttribute('disabled', true);
+  _toggleButtonState() {
+    if (this._hasInvalidInput()) {
+      this._submitButton.setAttribute('disabled', true);
     } else {
-      submitButtonElement.removeAttribute('disabled');
+      this._submitButton.removeAttribute('disabled');
     }
   }
 
+   // Делаем кнопку submit неактивной если хотя бы одно поле не валидно
+  resetButton() {
+    this._submitButton.setAttribute('disabled', true);
+    this._inputListArray.forEach((inputItem) => {
+      this._hideInputError(inputItem);
+    });
+  }
+
   // Вешаем события input на все поля формы
-  _setEventListeners = (formElement) => {
+  _setEventListeners = () => {
     const _this = this;
-    const inputListArray = Array.from(formElement.querySelectorAll(this._inputSelector));
-    const submitButtonElement = formElement.querySelector(this._submitButtonSelector);
+    this._submitButton = this._form.querySelector(this._submitButtonSelector);
+    this._inputListArray = Array.from(this._form.querySelectorAll(this._inputSelector));
 
-    this._toggleButtonState(inputListArray, submitButtonElement);
 
-    inputListArray.forEach(inputElement => {
+
+    this._toggleButtonState();
+
+    this._inputListArray.forEach(inputElement => {
       inputElement.addEventListener('input', function(){
         _this._checkInputValidity(inputElement);
-        _this._toggleButtonState(inputListArray, submitButtonElement);
+        _this._toggleButtonState();
       });
     });
   }
 
   // Подключение валидации ко всем формам
   enableValidation() {
-    this._setEventListeners(this._form);
+    this._setEventListeners();
   }
 }

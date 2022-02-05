@@ -12,11 +12,8 @@ export default class Card {
     this._handleLikeToggle = handleLikeToggle;
     this._handleDeleteCard = handleDeleteCard;
 
-    // this._handleCardClick = this._handleCardClick.bind(this);
-    // this._handleLikeToggle = this._handleLikeToggle.bind(this);
-    // this._handleDeleteCard = this._handleDeleteCard.bind(this);
-
     this._cardSelector = cardSelector;
+
   }
 
   _getTemplate() {
@@ -34,18 +31,18 @@ export default class Card {
   }
 
   _updateLike() {
-    this._element.querySelector('.photo-grid__count-like').textContent = this._likes.length;
+    this._countLike.textContent = this._likes.length;
 
-    if (this.checkLike()) this._element.querySelector('.photo-grid__like-button').classList.add('photo-grid__like-button_active');
+    if (this.checkLike()) this._likeButton.classList.add('photo-grid__like-button_active');
     else
-      this._element.querySelector('.photo-grid__like-button').classList.remove('photo-grid__like-button_active');
+    this._likeButton.classList.remove('photo-grid__like-button_active');
   }
 
   _setEventListeners() {
     const _this = this;
-    _this._element.querySelector('.photo-grid__delete-button').addEventListener('click', () => _this._handleDeleteCard());
-    _this._element.querySelector('.photo-grid__like-button').addEventListener('click', () => _this._handleLikeToggle());
-    _this._element.querySelector('.photo-grid__image').addEventListener('click', () => _this._handleCardClick());
+    _this._deleteButton.addEventListener('click', () => _this._handleDeleteCard());
+    _this._likeButton.addEventListener('click', () => _this._handleLikeToggle());
+    _this._gridImage.addEventListener('click', () => _this._handleCardClick());
   }
 
   removeCard() {
@@ -54,18 +51,24 @@ export default class Card {
 
   createCard() {
     this._element = this._getTemplate();
+    this._countLike = this._element.querySelector('.photo-grid__count-like');
+    this._likeButton = this._element.querySelector('.photo-grid__like-button');
+    this._deleteButton = this._element.querySelector('.photo-grid__delete-button');
+    this._gridImage = this._element.querySelector('.photo-grid__image');
+    this._imageTitle = this._element.querySelector('.photo-grid__image-title');
+    
     this._setEventListeners();
     this._updateLike();
 
     if(this._userId === this._ownerId) {
-      this._element.querySelector('.photo-grid__delete-button').classList.add('photo-grid__delete-button_active');
+      this._deleteButton.classList.add('photo-grid__delete-button_active');
     }
 
-    const img = this._element.querySelector('.photo-grid__image');
+    const img = this._gridImage;
     img.src = this._link;
     img.alt = this._name;
 
-    this._element.querySelector('.photo-grid__image-title').textContent = this._name;
+    this._imageTitle.textContent = this._name;
 
     return this._element;
 
