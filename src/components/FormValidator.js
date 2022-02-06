@@ -59,7 +59,7 @@ export default class FormValidator {
   }
 
    // Делаем кнопку submit неактивной если хотя бы одно поле не валидно
-  resetButton() {
+  resetValidation() {
     this._submitButton.setAttribute('disabled', true);
     this._inputListArray.forEach((inputItem) => {
       this._hideInputError(inputItem);

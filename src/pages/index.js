@@ -130,18 +130,19 @@ elements.profileEditButton.addEventListener('click', () => {
   const currentUser = userInfo.getUserInfo();
   elements.profileNameInput.value = currentUser.name;
   elements.profileAboutInput.value = currentUser.about;
-  profileFormValidator.resetButton();
+  profileFormValidator.resetValidation();
   editUserPopup.open();
 })
 
 
 
 elements.addPlaceButton.addEventListener('click', () => {
-  cardFormValidator.resetButton();
+  cardFormValidator.resetValidation();
   addCardPopup.open();
 })
 
 elements.changeAvatarButton.addEventListener('click', () => {
+  avatarFormValidator.resetValidation();
   editAvatarPopup.open();
 })
 
@@ -150,7 +151,6 @@ elements.profileAvatarWraper.addEventListener('mouseover', () => {
 });
 
 elements.profileAvatarWraper.addEventListener('mouseout', () => {
-  avatarFormValidator.resetButton();
   elements.changeAvatarButton.classList.remove(classAction.profileAvatarCoverActive);
 });
 
