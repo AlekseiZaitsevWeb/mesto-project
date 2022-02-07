@@ -28,6 +28,7 @@ const avatarFormValidator = new FormValidator(formSelectors, selectors.avatarPop
 avatarFormValidator.enableValidation();
 
 const imagePopup = new PopupWithImage(selectors.popupImage);
+imagePopup.setEventListeners();
 
 
 function generateCard(cardData) {
