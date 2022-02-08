@@ -3,6 +3,10 @@
 **Интро**
 
 Учебный проект о красивых местах на курсе **Веб-разработчик плюс** в **Яндекс.Практикум**.
+Командная разработка, участники:
+* [Андрей Милютин](https://github.com/Aventhorh)
+* [Владимир Богданов](https://github.com/elmechanicus)
+* [Алексей Зайцев](https://github.com/AlekseiZaitsevWeb)
 
 **Используемые технологии:**
 
@@ -21,6 +25,8 @@
 :white_check_mark: Webpack
 
 :white_check_mark: API
+
+:white_check_mark: ООП
 
 **Сайт на GH Pages**
 
